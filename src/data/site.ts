@@ -9,8 +9,8 @@ export const nav = {
     { label: 'Services', href: '/services' },
     { label: 'Comfort Plan', href: '/comfort-plan' },
     { label: 'Service Areas', href: '/service-areas' },
-    { label: 'Blog', href: '#' },
     { label: 'About', href: '/about' },
+    { label: 'Contact', href: '/contact' },
   ],
 };
 
@@ -22,13 +22,13 @@ export const footer = {
     { label: 'Services', href: '/services' },
     { label: 'Comfort Plan', href: '/comfort-plan' },
     { label: 'Service Areas', href: '/service-areas' },
-    { label: 'Blog', href: '#' },
     { label: 'About', href: '/about' },
+    { label: 'Contact', href: '/contact' },
   ],
   // Shown on their own line just above the footer copyright.
   legalLinks: [
-    { label: 'Privacy Policy', href: '#' },
-    { label: 'Terms of Service', href: '#' },
+    { label: 'Privacy Policy', href: '/privacy' },
+    { label: 'Terms of Service', href: '/terms' },
   ],
 };
 

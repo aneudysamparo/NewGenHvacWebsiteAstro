@@ -1,0 +1,22 @@
+---
+interface Props {
+  title: string;
+  lastUpdated: string;
+  intro?: string;
+}
+const { title, lastUpdated, intro } = Astro.props;
+---
+
+<section class="bg-gradient-to-br from-surface to-surface-container-low px-margin-mobile md:px-margin-desktop py-section-gap">
+  <div class="max-w-3xl mx-auto text-center">
+    <h1 class="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-on-surface mb-3">{title}</h1>
+    <p class="font-label-md text-label-md text-on-surface-variant">Last updated: {lastUpdated}</p>
+    {intro && <p class="font-body-lg text-body-lg text-on-surface-variant mt-6">{intro}</p>}
+  </div>
+</section>
+
+<section class="px-margin-mobile md:px-margin-desktop py-section-gap bg-surface">
+  <article class="article-content max-w-3xl mx-auto">
+    <slot />
+  </article>
+</section>

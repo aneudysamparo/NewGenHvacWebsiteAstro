@@ -1,0 +1,16 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ErrorState from '../components/layout/ErrorState.astro';
+---
+
+<Layout
+  title="Page Not Found (404) | NewGen HVAC"
+  description="The page you were looking for could not be found."
+>
+  <meta slot="head" name="robots" content="noindex" />
+  <ErrorState
+    code="404"
+    title="Page not found"
+    message="The page you're looking for moved or doesn't exist. Let's get you back on track — or call us and we'll point you the right way."
+  />
+</Layout>

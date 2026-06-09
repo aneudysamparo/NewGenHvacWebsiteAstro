@@ -1,0 +1,65 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { postImage, postCategory, formatDate } from '../../data/blog';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  featured?: boolean;
+}
+const { post, featured = false } = Astro.props;
+const img = postImage(post.data.relatedService);
+const category = postCategory(post.data.relatedService);
+const href = `/blog/${post.id}`;
+---
+
+<a
+  href={href}
+  class:list={[
+    'group bg-surface-light rounded-card border border-outline-variant/30 card-shadow overflow-hidden',
+    featured ? 'grid md:grid-cols-2 gap-0' : 'flex flex-col h-full',
+  ]}
+>
+  <div class:list={['relative overflow-hidden', featured ? 'min-h-[240px]' : 'aspect-video']}>
+    {
+      img ? (
+        <img
+          src={img}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+        />
+      ) : (
+        <div class="w-full h-full bg-gradient-to-br from-primary-container to-secondary flex items-center justify-center">
+          <span class="material-symbols-outlined text-white/80 text-5xl">article</span>
+        </div>
+      )
+    }
+    {category && (
+      <span class="absolute top-4 left-4 bg-white/90 text-primary font-label-md text-label-md px-3 py-1 rounded-full">
+        {category}
+      </span>
+    )}
+  </div>
+
+  <div class:list={['flex flex-col', featured ? 'p-8 lg:p-10 justify-center' : 'p-6']}>
+    <h3
+      class:list={[
+        'font-headline-md text-on-surface group-hover:text-primary transition-colors mb-3',
+        featured ? 'text-headline-lg-mobile md:text-headline-lg' : 'text-lg',
+      ]}
+    >
+      {post.data.title}
+    </h3>
+    <p class="font-body-md text-body-md text-on-surface-variant mb-4 flex-grow">
+      {post.data.description}
+    </p>
+    <div class="flex items-center gap-2 text-on-surface-variant/80 font-label-md text-sm mt-auto">
+      <span class="material-symbols-outlined text-[18px]">calendar_today</span>
+      {formatDate(post.data.publishDate)}
+      <span class="text-outline-variant">·</span>
+      {post.data.author}
+    </div>
+  </div>
+</a>

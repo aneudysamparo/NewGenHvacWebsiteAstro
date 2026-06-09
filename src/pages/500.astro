@@ -1,0 +1,16 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ErrorState from '../components/layout/ErrorState.astro';
+---
+
+<Layout
+  title="Something Went Wrong (500) | NewGen HVAC"
+  description="Something went wrong on our end. Please try again."
+>
+  <meta slot="head" name="robots" content="noindex" />
+  <ErrorState
+    code="500"
+    title="Something went wrong"
+    message="Sorry — something went wrong on our end. Please try again in a moment, or call us and we'll help you right away."
+  />
+</Layout>

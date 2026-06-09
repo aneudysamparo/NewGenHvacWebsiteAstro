@@ -1,0 +1,91 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ContactForm from '../components/contact/ContactForm.astro';
+import { business } from '../data/business';
+import { contact } from '../data/contact';
+
+const fullAddress = `${business.address.street}, ${business.address.city}, ${business.address.state} ${business.address.zip}`;
+const details = [
+  { icon: 'call', label: 'Call us', value: business.phone.display, href: business.phone.href },
+  { icon: 'mail', label: 'Email', value: business.email, href: `mailto:${business.email}` },
+  { icon: 'location_on', label: 'Visit', value: fullAddress },
+  {
+    icon: 'schedule',
+    label: 'Hours',
+    value: `${business.hours.weekdaysLabel} ${business.hours.weekdaysValue} · ${business.hours.emergencyValue} Emergency`,
+  },
+];
+const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(fullAddress)}&z=14&output=embed`;
+---
+
+<Layout title={contact.seo.title} description={contact.seo.metaDescription}>
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-surface to-surface-container-low px-margin-mobile md:px-margin-desktop py-section-gap">
+    <div class="max-w-container-max mx-auto text-center">
+      <span class="inline-block py-1 px-3 rounded-full bg-surface-container-highest text-primary font-label-md text-label-md uppercase tracking-wider mb-6">
+        Contact Us
+      </span>
+      <h1 class="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-on-surface mb-4">
+        {contact.hero.heading}
+      </h1>
+      <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">{contact.hero.subcopy}</p>
+    </div>
+  </section>
+
+  <!-- Details + form -->
+  <section class="px-margin-mobile md:px-margin-desktop py-section-gap bg-surface">
+    <div class="max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+      <div class="flex flex-col gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {
+            details.map((d) => (
+              <div class="bg-surface-light rounded-card border border-outline-variant/30 p-6 flex items-start gap-4">
+                <div class="bg-primary/10 text-primary p-3 rounded-full shrink-0">
+                  <span class="material-symbols-outlined">{d.icon}</span>
+                </div>
+                <div>
+                  <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wide mb-1">{d.label}</p>
+                  {d.href ? (
+                    <a href={d.href} class="font-headline-md text-base text-primary hover:text-secondary transition-colors break-words">
+                      {d.value}
+                    </a>
+                  ) : (
+                    <p class="font-body-md text-base text-on-surface">{d.value}</p>
+                  )}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+
+        <div class="bg-primary-container rounded-card p-6 text-white">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="material-symbols-outlined">map</span>
+            <h2 class="font-headline-md text-lg">Where we work</h2>
+          </div>
+          <p class="font-body-md text-white/85 mb-4">{contact.serviceAreaNote}</p>
+          <a href="/service-areas" class="inline-flex items-center gap-1 font-label-md text-white hover:gap-2 transition-all">
+            See all service areas <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+
+      <ContactForm />
+    </div>
+  </section>
+
+  <!-- Map -->
+  <section class="px-margin-mobile md:px-margin-desktop pb-section-gap bg-surface">
+    <div class="max-w-container-max mx-auto rounded-card overflow-hidden border border-outline-variant/30 shadow-sm">
+      <iframe
+        title={`Map of ${fullAddress}`}
+        src={mapSrc}
+        width="100%"
+        height="400"
+        style="border:0;"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+  </section>
+</Layout>

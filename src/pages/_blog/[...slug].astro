@@ -1,0 +1,141 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import PostCard from '../../components/blog/PostCard.astro';
+import { business } from '../../data/business';
+import { postImage, postCategory, formatDate } from '../../data/blog';
+
+export async function getStaticPaths() {
+  // Drafts (the parked NFPA-96 post, §6.3) never get a page.
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const img = postImage(post.data.relatedService);
+const category = postCategory(post.data.relatedService);
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://newgenhvac.com').href;
+
+// Related: prefer same service (recent first), then fill with others.
+const byDate = (a: any, b: any) => b.data.publishDate.getTime() - a.data.publishDate.getTime();
+const all = (await getCollection('blog', ({ data }) => !data.draft)).filter((p) => p.id !== post.id);
+const sameService = all.filter((p) => p.data.relatedService === post.data.relatedService).sort(byDate);
+const otherPosts = all.filter((p) => p.data.relatedService !== post.data.relatedService).sort(byDate);
+const related = [...sameService, ...otherPosts].slice(0, 3);
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.publishDate.toISOString(),
+  author: { '@type': 'Organization', name: post.data.author },
+  publisher: { '@type': 'Organization', name: business.legalName },
+  mainEntityOfPage: canonical,
+};
+---
+
+<Layout title={`${post.data.title} | NewGen HVAC Blog`} description={post.data.description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(articleLd)} />
+  </Fragment>
+
+  <!-- Breadcrumbs -->
+  <nav aria-label="Breadcrumb" class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-6">
+    <ol class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md flex-wrap">
+      <li><a class="hover:text-primary flex items-center gap-1" href="/"><span class="material-symbols-outlined text-[18px]">home</span>Home</a></li>
+      <li aria-hidden="true"><span class="material-symbols-outlined text-[16px]">chevron_right</span></li>
+      <li><a class="hover:text-primary" href="/blog">Blog</a></li>
+      <li aria-hidden="true"><span class="material-symbols-outlined text-[16px]">chevron_right</span></li>
+      <li class="text-primary font-bold line-clamp-1" aria-current="page">{post.data.title}</li>
+    </ol>
+  </nav>
+
+  <!-- Hero -->
+  <section class="max-w-3xl mx-auto px-margin-mobile md:px-margin-desktop text-center mb-10">
+    {category && (
+      <span class="inline-block bg-surface-container-highest text-primary font-label-md text-label-md uppercase tracking-wider px-3 py-1 rounded-full mb-5">
+        {category}
+      </span>
+    )}
+    <h1 class="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-on-surface mb-5">
+      {post.data.title}
+    </h1>
+    <div class="flex items-center justify-center gap-2 text-on-surface-variant font-label-md text-sm">
+      <span class="material-symbols-outlined text-[18px]">calendar_today</span>
+      {formatDate(post.data.publishDate)}
+      <span class="text-outline-variant">·</span>
+      {post.data.author}
+    </div>
+  </section>
+
+  {
+    img && (
+      <div class="max-w-4xl mx-auto px-margin-mobile md:px-margin-desktop mb-section-gap">
+        <img
+          src={img}
+          alt=""
+          aria-hidden="true"
+          width="896"
+          height="504"
+          class="w-full aspect-video object-cover rounded-card shadow-lg"
+        />
+      </div>
+    )
+  }
+
+  <!-- Article body -->
+  <article class="article-content max-w-3xl mx-auto px-margin-mobile md:px-margin-desktop">
+    <Content />
+  </article>
+
+  <!-- Related service CTA -->
+  {
+    post.data.relatedService && (
+      <div class="max-w-3xl mx-auto px-margin-mobile md:px-margin-desktop mt-section-gap">
+        <div class="bg-primary-container rounded-card p-8 md:p-10 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+          <div>
+            <h2 class="font-headline-md text-headline-md text-white mb-1">Need {category} service?</h2>
+            <p class="font-body-md text-white/85">We're bilingual, local, and a quick call away.</p>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-3 shrink-0">
+            <a
+              href={`/services/${post.data.relatedService}`}
+              class="bg-white text-primary px-6 py-3 rounded-btn font-label-md font-bold hover:bg-surface-container-low transition-colors text-center"
+            >
+              View service
+            </a>
+            <button
+              type="button"
+              data-lead-modal-open
+              data-lead-title={`Free Estimate — ${category}`}
+              class="border-2 border-white/30 text-white px-6 py-3 rounded-btn font-label-md font-bold hover:bg-white/10 transition-colors"
+            >
+              Free Estimate
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  <!-- Related posts -->
+  {
+    related.length > 0 && (
+      <section class="bg-surface-light px-margin-mobile md:px-margin-desktop py-section-gap mt-section-gap">
+        <div class="max-w-container-max mx-auto">
+          <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-8 text-center">
+            More from the blog
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {related.map((p) => (
+              <PostCard post={p} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+</Layout>

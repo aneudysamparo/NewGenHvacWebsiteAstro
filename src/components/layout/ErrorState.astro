@@ -1,0 +1,64 @@
+---
+import { business } from '../../data/business';
+
+interface Props {
+  code: string;
+  title: string;
+  message: string;
+}
+const { code, title, message } = Astro.props;
+
+const quickLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'Services', href: '/services' },
+  { label: 'Comfort Plan', href: '/comfort-plan' },
+  { label: 'Service Areas', href: '/service-areas' },
+  { label: 'Contact', href: '/contact' },
+];
+---
+
+<section
+  class="bg-gradient-to-br from-surface to-surface-container-low px-margin-mobile md:px-margin-desktop py-section-gap min-h-[60vh] flex items-center"
+>
+  <div class="max-w-2xl mx-auto text-center">
+    <p class="airflow-gradient bg-clip-text text-transparent font-headline-xl text-[96px] md:text-[160px] font-bold leading-none mb-4">
+      {code}
+    </p>
+    <h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-4">{title}</h1>
+    <p class="font-body-lg text-body-lg text-on-surface-variant mb-10">{message}</p>
+
+    <div class="flex flex-col sm:flex-row justify-center gap-4 mb-12">
+      <a
+        href="/"
+        class="bg-primary text-white px-8 py-4 rounded-btn font-label-md shadow-md hover:bg-secondary transition-colors duration-300"
+      >
+        Back to Home
+      </a>
+      <a
+        href={business.phone.href}
+        class="flex items-center justify-center gap-2 border-2 border-primary text-primary px-8 py-4 rounded-btn font-label-md hover:bg-surface-container transition-colors duration-300"
+      >
+        <span class="material-symbols-outlined">call</span>
+        Call {business.phone.display}
+      </a>
+    </div>
+
+    <div>
+      <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-3">
+        Popular pages
+      </p>
+      <div class="flex flex-wrap justify-center gap-2">
+        {
+          quickLinks.map((link) => (
+            <a
+              href={link.href}
+              class="inline-block bg-white border border-outline-variant/30 rounded-full px-4 py-1.5 font-label-md text-sm text-on-surface hover:border-primary hover:text-primary transition-colors"
+            >
+              {link.label}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

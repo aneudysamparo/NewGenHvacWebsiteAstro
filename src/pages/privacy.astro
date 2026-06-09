@@ -1,0 +1,92 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LegalPage from '../components/legal/LegalPage.astro';
+import { business } from '../data/business';
+
+/*
+ * TODO(legal): standard starter Privacy Policy. JC should have this reviewed by
+ * an attorney and confirm specifics before launch — especially: who processes
+ * form/lead data (Jobber/GoHighLevel), the SMS provider, and any analytics/
+ * cookies actually in use. Update the "Last updated" date when revised.
+ */
+const lastUpdated = 'June 9, 2026';
+---
+
+<Layout
+  title="Privacy Policy | NewGen HVAC"
+  description="How NewGen HVAC (New Generation HVAC LLC) collects, uses, and protects the information you share with us."
+>
+  <LegalPage
+    title="Privacy Policy"
+    lastUpdated={lastUpdated}
+    intro={`${business.name} (${business.legalName}) respects your privacy. This policy explains what we collect through ${'newgenhvac.com'} and how we use it.`}
+  >
+    <h2>Information we collect</h2>
+    <p>
+      <strong>Information you give us.</strong> When you request an estimate or service — by form, phone,
+      or email — we collect the details you provide, such as your name, phone number, email address,
+      service address or town, preferred language, and any message about the work you need.
+    </p>
+    <p>
+      <strong>Information collected automatically.</strong> Like most websites, we may collect basic
+      technical and usage data (such as browser type, device, and pages viewed) to operate and improve
+      the site.
+    </p>
+
+    <h2>How we use your information</h2>
+    <ul>
+      <li>To respond to your inquiry and provide estimates, scheduling, and service.</li>
+      <li>To send service-related updates, reminders, and customer-care messages.</li>
+      <li>To operate, maintain, and improve our website and our service.</li>
+      <li>To comply with legal obligations and protect our rights.</li>
+    </ul>
+
+    <h2>Text messaging (SMS)</h2>
+    <p>
+      If you opt in — for example, by checking the consent box on a form — we may send SMS messages
+      about appointments, reminders, and customer care. Message frequency varies, and message and data
+      rates may apply. You can reply <strong>STOP</strong> to opt out at any time, or <strong>HELP</strong>
+      for help. We do not sell or share your mobile opt-in information with third parties for their own
+      marketing.
+    </p>
+
+    <h2>How we share information</h2>
+    <p>
+      We do not sell your personal information. We may share it with service providers who help us
+      operate our business (for example, scheduling, customer-relationship, or communications tools),
+      and only as needed to provide our services or as required by law.
+    </p>
+
+    <h2>Cookies & analytics</h2>
+    <p>
+      We may use basic cookies or analytics to understand how the site is used and to improve it. You
+      can control cookies through your browser settings.
+    </p>
+
+    <h2>Data security & retention</h2>
+    <p>
+      We take reasonable measures to protect the information you share with us, and we keep it only as
+      long as needed for the purposes described here or as required by law. No method of transmission or
+      storage is completely secure.
+    </p>
+
+    <h2>Your choices</h2>
+    <p>
+      You may ask us to access, correct, or delete the personal information we hold about you, and you
+      may opt out of non-essential messages at any time. Contact us using the details below.
+    </p>
+
+    <h2>Children's privacy</h2>
+    <p>Our website and services are not directed to children under 13, and we do not knowingly collect their information.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>We may update this policy from time to time. The "Last updated" date above reflects the latest version.</p>
+
+    <h2>Contact us</h2>
+    <p>
+      {business.legalName} · {business.address.street}, {business.address.city}, {business.address.state}{' '}
+      {business.address.zip} · <a href={business.phone.href}>{business.phone.display}</a> ·{' '}
+      <a href={`mailto:${business.email}`}>{business.email}</a>
+    </p>
+  </LegalPage>
+</Layout>
