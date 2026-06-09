@@ -1,0 +1,43 @@
+---
+import { ourStory as story } from '../../data/about';
+---
+
+<section
+  id="our-story"
+  class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-light scroll-mt-24"
+>
+  <div
+    class="max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center"
+  >
+    <div
+      class="lg:col-span-5 lg:col-start-1 relative rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,67,106,0.15)] h-[400px] lg:h-[500px]"
+    >
+      <img
+        alt={story.image.alt}
+        class="w-full h-full object-cover"
+        src={story.image.src}
+        width="512"
+        height="512"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+
+    <div class="lg:col-span-6 lg:col-start-7 flex flex-col gap-stack-lg">
+      <h2
+        class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-primary"
+      >
+        {story.heading}
+      </h2>
+      <div class="w-16 h-1 bg-emergency-orange rounded-full"></div>
+      <p class="font-body-lg text-body-lg text-on-surface-variant font-medium mt-2">
+        {story.founder}
+      </p>
+      <div
+        class="font-body-md text-body-md text-on-surface-variant flex flex-col gap-stack-md"
+      >
+        {story.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+  </div>
+</section>

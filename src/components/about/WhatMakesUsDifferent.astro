@@ -1,0 +1,33 @@
+---
+import { whatMakesUsDifferent as section } from '../../data/about';
+---
+
+<section
+  class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-container-lowest border-y border-outline-variant/20"
+>
+  <div class="max-w-container-max mx-auto">
+    <div class="text-center mb-stack-lg md:mb-16">
+      <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-4">
+        {section.heading}
+      </h2>
+      <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto">
+        {section.subcopy}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+      {
+        section.cards.map((card) => (
+          <div class="bg-surface-light border border-outline-variant/30 rounded-xl p-8 hover:shadow-[0_4px_20px_rgba(0,67,106,0.15)] transition-shadow duration-300 relative overflow-hidden group shadow-sm">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-primary-fixed-dim opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div class="w-12 h-12 bg-surface-container-high text-primary rounded-lg flex items-center justify-center mb-6">
+              <span class="material-symbols-outlined fill">{card.icon}</span>
+            </div>
+            <h3 class="font-headline-md text-headline-md text-on-surface mb-3">{card.title}</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant">{card.desc}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -142,7 +142,4 @@ export const testimonials = {
   ],
 };
 
-export const finalCta = {
-  heading: 'Ready to Upgrade Your Comfort?',
-  desc: 'Contact us today for a free estimate or emergency service.',
-};
+// `finalCta` moved to ./site.ts — it's now global sub-footer chrome rendered by Layout.

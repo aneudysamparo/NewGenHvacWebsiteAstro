@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import { business } from '../data/business';
 import SiteHeader from '../components/layout/SiteHeader.astro';
+import FinalCta from '../components/layout/FinalCta.astro';
 import SiteFooter from '../components/layout/SiteFooter.astro';
 import MobileCallBar from '../components/layout/MobileCallBar.astro';
 
@@ -62,6 +63,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://newgenhvac.
     <main>
       <slot />
     </main>
+    <FinalCta />
     <SiteFooter />
     <MobileCallBar />
   </body>

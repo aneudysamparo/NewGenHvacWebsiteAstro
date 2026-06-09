@@ -1,0 +1,40 @@
+---
+import { howWeWork as section } from '../../data/about';
+---
+
+<section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-light">
+  <div class="max-w-container-max mx-auto">
+    <div class="text-center mb-stack-lg md:mb-16">
+      <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-4">
+        {section.heading}
+      </h2>
+      <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto">
+        {section.subcopy}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+      <!-- Connecting line (desktop only) -->
+      <div class="hidden lg:block absolute top-12 left-[12.5%] right-[12.5%] h-0.5 bg-outline-variant/40 z-0"></div>
+
+      {
+        section.steps.map((step) => (
+          <div class="relative z-10 flex flex-col items-center text-center group">
+            <div
+              class={`w-24 h-24 bg-surface rounded-full shadow-md border-4 border-surface-light flex items-center justify-center mb-6 ${step.emphasis ? 'text-emergency-orange' : 'text-primary'} group-hover:scale-110 transition-transform duration-300`}
+            >
+              <span class="material-symbols-outlined text-4xl">{step.icon}</span>
+            </div>
+            <p
+              class={`font-label-md text-label-md tracking-widest uppercase mb-2 ${step.emphasis ? 'text-emergency-orange' : 'text-primary'}`}
+            >
+              {step.label}
+            </p>
+            <h3 class="font-headline-md text-headline-md text-on-surface mb-2">{step.title}</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant text-sm">{step.desc}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
