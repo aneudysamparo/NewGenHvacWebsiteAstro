@@ -1,5 +1,4 @@
 ---
-import { business } from '../../data/business';
 import { nav } from '../../data/site';
 ---
 
@@ -34,33 +33,55 @@ import { nav } from '../../data/site';
       }
     </div>
 
-    <!-- Actions -->
-    <div class="hidden md:flex items-center gap-6">
-      <a
-        class="font-label-md text-label-md text-on-surface hover:text-primary flex items-center gap-2"
-        href={business.phone.href}
-      >
-        <span class="material-symbols-outlined">call</span>
-        {business.phone.display}
-      </a>
-      <a
-        class="bg-primary hover:bg-primary/90 text-on-primary font-label-md text-label-md px-6 py-3 rounded-btn transition-colors"
-        href="#request-estimate"
-      >
-        Free Estimate
-      </a>
-      <button
-        class="text-on-surface hover:text-primary flex items-center justify-center p-2 rounded-full hover:bg-surface-container-low transition-colors"
-        type="button"
-        aria-label="Switch language"
-      >
-        <span class="material-symbols-outlined">language</span>
-      </button>
-    </div>
-
     <!-- Mobile menu toggle -->
-    <button class="md:hidden text-on-surface p-2" type="button" aria-label="Open menu">
-      <span class="material-symbols-outlined">menu</span>
+    <button
+      id="mobile-menu-toggle"
+      class="md:hidden text-on-surface p-2 -mr-2"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span class="material-symbols-outlined text-[28px]" data-menu-icon>menu</span>
     </button>
   </div>
+
+  <!-- Mobile menu panel -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-outline-variant/30 bg-surface">
+    <ul class="flex flex-col px-margin-mobile py-2 max-w-container-max mx-auto">
+      {
+        nav.links.map((link) => (
+          <li>
+            <a
+              class="block py-3 text-on-surface hover:text-primary font-body-md border-b border-outline-variant/15 last:border-b-0 transition-colors"
+              href={link.href}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 </nav>
+
+<script>
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const icon = toggle?.querySelector('[data-menu-icon]');
+
+  if (toggle && menu && icon) {
+    const setOpen = (open) => {
+      menu.classList.toggle('hidden', !open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      icon.textContent = open ? 'close' : 'menu';
+    };
+
+    toggle.addEventListener('click', () => setOpen(menu.classList.contains('hidden')));
+    menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setOpen(false);
+    });
+  }
+</script>

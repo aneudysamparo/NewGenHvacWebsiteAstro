@@ -22,10 +22,12 @@ const avatar: Record<string, string> = {
       <p class="font-body-md text-on-surface-variant">{testimonials.ratingNote}</p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div
+      class="flex gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar py-4 md:grid md:grid-cols-3 md:overflow-visible md:py-0"
+    >
       {
         testimonials.reviews.map((review) => (
-          <figure class="bg-white p-6 rounded-card border border-outline-variant/30 card-shadow flex flex-col">
+          <figure class="shrink-0 w-[82%] sm:w-[360px] md:w-auto snap-start bg-white p-6 rounded-card border border-outline-variant/30 card-shadow flex flex-col">
             <figcaption class="flex items-center gap-4 mb-4">
               <div
                 class={`w-12 h-12 ${avatar[review.accent]} rounded-full flex items-center justify-center font-bold text-xl`}

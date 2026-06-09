@@ -11,13 +11,13 @@ const year = new Date().getFullYear();
   <div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
     <!-- Brand & about -->
     <div>
-      <a class="inline-flex bg-white rounded-lg p-3 mb-6" href="/">
+      <a class="flex w-full max-w-[300px] bg-white rounded-lg p-3 mb-6" href="/">
         <img
           src="/images/horizontal_logo.png"
           alt="New Generation HVAC"
           width="1640"
           height="521"
-          class="h-10 w-auto"
+          class="w-full h-auto"
         />
       </a>
       <p class="font-body-md text-inverse-on-surface/80 mb-6">{footer.about}</p>
@@ -129,6 +129,17 @@ const year = new Date().getFullYear();
   <div
     class="max-w-container-max mx-auto mt-12 pt-8 border-t border-white/10 text-center font-body-md text-sm text-inverse-on-surface/60"
   >
+    <ul class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-4">
+      {
+        footer.legalLinks.map((link) => (
+          <li>
+            <a class="hover:text-white transition-colors" href={link.href}>
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
     <p>© {year} {business.legalName}. All rights reserved.</p>
   </div>
 </footer>
