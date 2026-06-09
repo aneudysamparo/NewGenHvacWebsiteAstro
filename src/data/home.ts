@@ -58,10 +58,10 @@ export const servicesSection = {
   // Copy + order from Docs/home.md. TODO(service-pages): point href to the real
   // /services/* paths (in the doc) once those pages exist; '#' avoids 404s now.
   items: [
-    { icon: 'domain', title: 'Commercial HVAC', desc: 'Rooftop units, heat pumps, and heating systems that keep your business open.', href: '#' },
-    { icon: 'ac_unit', title: 'Residential HVAC', desc: 'Mini-splits, heat pumps, AC, and furnace service to keep your family comfortable.', href: '#' },
-    { icon: 'kitchen', title: 'Commercial Refrigeration', desc: 'Walk-ins, reach-ins, ice machines, and the fast response that protects your inventory.', href: '#' },
-    { icon: 'restaurant', title: 'Commercial Kitchen Equipment', desc: 'Fryers, ovens, griddles, and the safety controls behind them — back up fast.', href: '#' },
+    { icon: 'domain', title: 'Commercial HVAC', desc: 'Rooftop units, heat pumps, and heating systems that keep your business open.', href: '/services/commercial-hvac' },
+    { icon: 'ac_unit', title: 'Residential HVAC', desc: 'Mini-splits, heat pumps, AC, and furnace service to keep your family comfortable.', href: '/services/residential-hvac' },
+    { icon: 'kitchen', title: 'Commercial Refrigeration', desc: 'Walk-ins, reach-ins, ice machines, and the fast response that protects your inventory.', href: '/services/commercial-refrigeration' },
+    { icon: 'restaurant', title: 'Commercial Kitchen Equipment', desc: 'Fryers, ovens, griddles, and the safety controls behind them — back up fast.', href: '/services/commercial-kitchen-equipment' },
   ],
 };
 

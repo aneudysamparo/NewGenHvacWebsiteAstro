@@ -41,7 +41,7 @@ export const grid = {
       title: 'Commercial HVAC',
       desc: 'Installation, replacement, and repair of rooftop units, heat pumps, and heating systems that keep your business open.',
       features: ['Rooftop Units (RTUs)', 'Heat Pumps', 'Heating Systems', 'Preventative Maintenance'],
-      href: '#',
+      href: '/services/commercial-hvac',
     },
     {
       accent: 'secondary',
@@ -49,7 +49,7 @@ export const grid = {
       title: 'Residential HVAC',
       desc: 'High-efficiency mini-splits, heat pumps, AC, and furnace service to keep your home comfortable year-round.',
       features: ['Mini-Splits', 'Heat Pumps', 'AC Repair & Install', 'Furnace Service'],
-      href: '#',
+      href: '/services/residential-hvac',
     },
     {
       accent: 'primary-container',
@@ -57,7 +57,7 @@ export const grid = {
       title: 'Commercial Refrigeration',
       desc: 'Walk-in coolers, freezers, reach-ins, and ice machines — with the fast response that protects your inventory.',
       features: ['Walk-in Coolers', 'Reach-in Freezers', 'Ice Machines', 'Emergency Repair'],
-      href: '#',
+      href: '/services/commercial-refrigeration',
     },
     {
       accent: 'primary',
@@ -65,7 +65,7 @@ export const grid = {
       title: 'Commercial Kitchen Equipment',
       desc: 'Repair and safety service for fryers, ovens, griddles, burners, and gas valves.',
       features: ['Fryers & Griddles', 'Ovens & Ranges', 'Burners & Gas Valves', 'Safety Controls'],
-      href: '#',
+      href: '/services/commercial-kitchen-equipment',
     },
   ],
 };

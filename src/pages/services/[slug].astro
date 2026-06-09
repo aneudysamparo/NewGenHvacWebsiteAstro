@@ -1,0 +1,18 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ServiceDetail from '../../components/service-detail/ServiceDetail.astro';
+import { serviceDetails } from '../../data/service-details';
+
+export function getStaticPaths() {
+  return Object.entries(serviceDetails).map(([slug, service]) => ({
+    params: { slug },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+---
+
+<Layout title={service.seo.title} description={service.seo.description}>
+  <ServiceDetail service={service} />
+</Layout>

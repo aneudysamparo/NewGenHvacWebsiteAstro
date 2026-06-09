@@ -23,7 +23,7 @@ export const ourStory = {
   // Founder + founding year CONFIRMED in Docs/00-business-facts.md ("Founded:
   // 2014 ... Jean Carlos Alcántara") and Docs/about.md. Story copy from Docs/about.md.
   founder: 'Founded in 2014 by Jean Carlos Alcántara — serving the Merrimack Valley ever since.',
-  image: { src: '/images/Logo-New-Generation-HVAC.png', alt: 'NewGen HVAC technician' },
+  image: { src: '/images/Logo-New-Generation-HVAC.png', alt: 'New Geneneration HVAC Logo' },
   paragraphs: [
     "NewGen HVAC (New Generation HVAC LLC) was founded in 2014 by Jean Carlos Alcántara with a simple idea: give homeowners and business owners a technician who actually knows the equipment, shows up when promised, and explains things in plain language — in English or Spanish. More than a decade later, that's still how we work.",
     "We're not a franchise or a call center. We're a local shop based in Methuen, and when you call, you're dealing with the people who do the work.",
