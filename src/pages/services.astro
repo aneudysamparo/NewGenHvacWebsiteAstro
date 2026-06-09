@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ServicesHero from '../components/services/ServicesHero.astro';
+import ServicesGrid from '../components/services/ServicesGrid.astro';
+import MembershipCallout from '../components/services/MembershipCallout.astro';
+// Reused, self-contained sections from the home page:
+import Differentiators from '../components/home/Differentiators.astro';
+import Testimonials from '../components/home/Testimonials.astro';
+import Faq from '../components/home/Faq.astro';
+---
+
+<Layout
+  title="Our Services — HVAC, Refrigeration & Kitchen Equipment | NewGen HVAC"
+  description="Commercial and residential HVAC, commercial refrigeration, and kitchen equipment repair across the Merrimack Valley and Southern NH. Bilingual service since 2014."
+>
+  <ServicesHero />
+  <ServicesGrid />
+  <Differentiators />
+  <MembershipCallout />
+  <Testimonials />
+  <Faq />
+</Layout>

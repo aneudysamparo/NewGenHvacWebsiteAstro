@@ -1,0 +1,32 @@
+---
+import { membership as m } from '../../data/services';
+---
+
+<section class="py-12 bg-surface-container-low border-y border-outline-variant/30 px-margin-mobile md:px-margin-desktop">
+  <div
+    class="max-w-container-max mx-auto flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left"
+  >
+    <div class="flex flex-col sm:flex-row items-center gap-6">
+      <div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+        <span class="material-symbols-outlined text-primary text-4xl">verified</span>
+      </div>
+      <div>
+        <h2 class="font-headline-md text-headline-md text-on-surface mb-1">{m.heading}</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant max-w-xl">{m.body}</p>
+      </div>
+    </div>
+
+    <div class="shrink-0">
+      <p class="font-label-md text-label-md text-primary uppercase tracking-widest mb-1">{m.priceLabel}</p>
+      <div class="font-headline-xl text-3xl md:text-4xl text-on-surface font-bold mb-3">
+        {m.priceAmount}<span class="text-headline-md text-on-surface-variant font-normal">{m.pricePeriod}</span>
+      </div>
+      <a
+        class="inline-block bg-primary text-white px-8 py-3 rounded-btn font-label-md hover:bg-secondary transition-colors duration-300"
+        href={m.cta.href}
+      >
+        {m.cta.label}
+      </a>
+    </div>
+  </div>
+</section>

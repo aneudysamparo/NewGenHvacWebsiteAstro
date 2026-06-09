@@ -1,0 +1,52 @@
+---
+import { grid } from '../../data/services';
+
+// Literal class strings so Tailwind detects them. tile = icon background.
+const accent: Record<string, { tile: string; check: string }> = {
+  primary: { tile: 'bg-primary', check: 'text-primary' },
+  secondary: { tile: 'bg-secondary', check: 'text-secondary' },
+  'primary-container': { tile: 'bg-primary-container', check: 'text-primary' },
+};
+---
+
+<section id="services" class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface scroll-mt-20">
+  <div class="max-w-container-max mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-4">
+        {grid.heading}
+      </h2>
+      <p class="font-body-md text-body-md text-on-surface-variant">{grid.subcopy}</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+      {
+        grid.services.map((service) => (
+          <div class="bg-surface-container-low p-8 rounded-card border border-outline-variant/30 card-shadow flex flex-col h-full">
+            <div class={`w-14 h-14 ${accent[service.accent].tile} rounded-2xl flex items-center justify-center mb-6`}>
+              <span class="material-symbols-outlined text-white text-3xl">{service.icon}</span>
+            </div>
+            <h3 class="font-headline-md text-headline-md text-on-surface mb-3">{service.title}</h3>
+            <p class="font-body-md text-on-surface-variant mb-6">{service.desc}</p>
+            <ul class="space-y-3 mb-8 flex-grow">
+              {service.features.map((feature) => (
+                <li class="flex items-center gap-3 font-body-md text-on-surface-variant">
+                  <span class={`material-symbols-outlined ${accent[service.accent].check} text-lg`}>
+                    check_circle
+                  </span>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+            <a
+              class="text-primary font-label-md flex items-center gap-2 group mt-auto hover:gap-3 transition-all"
+              href={service.href}
+            >
+              Learn More
+              <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </a>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

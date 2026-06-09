@@ -1,0 +1,68 @@
+---
+import { hero, trustBadges } from '../../data/services';
+---
+
+<section
+  class="relative py-section-gap px-margin-mobile md:px-margin-desktop bg-gradient-to-br from-surface to-surface-container-low overflow-hidden"
+>
+  <div class="max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-2 gap-gutter lg:gap-16 items-center">
+    <div class="z-10 text-center lg:text-left">
+      <span
+        class="inline-block py-1 px-3 rounded-full bg-surface-container-highest text-primary font-label-md text-label-md uppercase tracking-wider mb-6"
+      >
+        {hero.badge}
+      </span>
+      <h1 class="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-on-surface mb-6 leading-tight">
+        {hero.headingLead} <span class="text-primary">{hero.headingEmphasis}</span>
+      </h1>
+      <p class="font-body-lg text-body-lg text-on-surface-variant mb-8 max-w-xl mx-auto lg:mx-0">
+        {hero.subcopy}
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+        <button
+          type="button"
+          data-lead-modal-open
+          data-lead-title="Get a Free Estimate"
+          class="bg-primary text-white px-8 py-4 rounded-btn font-label-md shadow-md hover:bg-secondary transition-colors duration-300"
+        >
+          {hero.primaryCta.label}
+        </button>
+        <a
+          class="bg-surface-container-highest text-primary px-8 py-4 rounded-btn font-label-md hover:bg-surface-container-high transition-colors duration-300 text-center"
+          href={hero.secondaryCta.href}
+        >
+          {hero.secondaryCta.label}
+        </a>
+      </div>
+    </div>
+
+    <div class="relative mt-4 lg:mt-0">
+      <div class="absolute -inset-4 bg-primary/5 rounded-3xl blur-3xl" aria-hidden="true"></div>
+      <img
+        src={hero.image.src}
+        alt={hero.image.alt}
+        width="960"
+        height="540"
+        loading="eager"
+        decoding="async"
+        class="rounded-2xl shadow-xl relative z-10 w-full object-cover aspect-video"
+      />
+    </div>
+  </div>
+</section>
+
+<!-- Trust strip -->
+<section class="bg-primary text-on-primary py-5 px-margin-mobile md:px-margin-desktop border-y border-white/10">
+  <div
+    class="max-w-container-max mx-auto flex flex-wrap justify-center md:justify-between items-center gap-x-8 gap-y-3 font-label-md text-label-md tracking-wide"
+  >
+    {
+      trustBadges.map((badge, i) => (
+        <div class={`flex items-center gap-2 ${i % 2 === 1 ? 'hidden md:flex' : 'flex'}`}>
+          <span class="material-symbols-outlined text-on-primary">{badge.icon}</span>
+          {badge.label}
+        </div>
+      ))
+    }
+  </div>
+</section>
