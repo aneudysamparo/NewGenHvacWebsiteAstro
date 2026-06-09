@@ -11,12 +11,14 @@ export const hero = {
   headlineLead: 'HVAC & Commercial Refrigeration',
   headlineEmphasis: 'You Can Count On',
   subcopy:
-    'Expert, reliable service for homes and businesses. Keep your environment perfect year-round with our certified professionals.',
+    "Family-run and bilingual, serving Methuen and the Merrimack Valley since 2014 — from home comfort to the walk-in cooler that can't go down.",
   emergencyLabel: '24/7 Emergency Service',
+  // Trust strip from Docs/home.md (moat-forward). "Licensed & Insured" was
+  // dropped — not in the source-of-truth facts; re-add only if JC confirms.
   trustBadges: [
-    { icon: 'verified', label: 'Licensed & Insured' },
-    { icon: 'workspace_premium', label: '100% Satisfaction' },
-    { icon: 'thumb_up', label: 'Local Experts' },
+    { icon: 'language', label: 'Bilingual (EN/ES)' },
+    { icon: 'kitchen', label: 'Refrigeration Specialists' },
+    { icon: 'location_on', label: 'Serving MA & Southern NH' },
   ],
 };
 
@@ -39,22 +41,27 @@ export const leadForm = {
     'By clicking "Get My Free Estimate", you consent to receive SMS messages regarding your inquiry. Msg & data rates may apply. Reply STOP to opt out.',
 };
 
+// "Why NewGen" differentiators — from Docs/home.md. Leads with the moat
+// (bilingual + commercial refrigeration). Colors limited to the keys the
+// Differentiators component maps: primary | secondary | emergency-orange.
 export const differentiators = [
-  { icon: 'language', color: 'primary', title: 'Bilingual Support', desc: 'Hablamos Español to better serve our community.' },
-  { icon: 'medical_services', color: 'emergency-orange', title: '24/7 Emergency Service', desc: 'Always here when you need us most.' },
-  { icon: 'verified_user', color: 'secondary', title: 'Licensed & Insured', desc: 'Fully certified professionals for peace of mind.' },
-  { icon: 'location_on', color: 'primary', title: 'Local Experts', desc: 'Serving Merrimack Valley & Southern NH.' },
+  { icon: 'language', color: 'primary', title: 'We Speak Your Language', desc: 'Full service in English and Spanish — clear answers, no translation guesswork.' },
+  { icon: 'kitchen', color: 'secondary', title: 'Refrigeration Specialists', desc: "Most residential shops can't help when a cooler fails. We can — it's our specialty, not an afterthought." },
+  { icon: 'bolt', color: 'emergency-orange', title: 'Local & Responsive', desc: "Based in Methuen, with 24/7 emergency support for the equipment that can't wait." },
+  { icon: 'verified', color: 'primary', title: 'Straight Answers Since 2014', desc: 'Honest diagnosis, fair pricing, and work we stand behind.' },
 ];
 
 export const servicesSection = {
   heading: 'Comprehensive HVAC Solutions',
   subcopy:
-    'From residential comfort to commercial reliability, we have the expertise to handle all your climate control needs.',
+    "We do the work most residential HVAC companies won't touch — real commercial refrigeration and kitchen equipment, alongside the heating and cooling homes and businesses run on every day.",
+  // Copy + order from Docs/home.md. TODO(service-pages): point href to the real
+  // /services/* paths (in the doc) once those pages exist; '#' avoids 404s now.
   items: [
-    { icon: 'ac_unit', title: 'Residential HVAC', desc: 'Keep your home comfortable year-round with our expert AC and heating installation, repair, and tune-up services.', href: '#' },
-    { icon: 'domain', title: 'Commercial HVAC', desc: 'Scalable heating and cooling solutions designed for businesses and commercial facilities.', href: '#' },
-    { icon: 'kitchen', title: 'Commercial Refrigeration', desc: 'Walk-in coolers, freezers, and ice machines tailored for restaurants and retail spaces.', href: '#' },
-    { icon: 'restaurant', title: 'Commercial Kitchen Equipment', desc: 'Expert maintenance and repair for commercial kitchen appliances to keep your operations running smoothly.', href: '#' },
+    { icon: 'domain', title: 'Commercial HVAC', desc: 'Rooftop units, heat pumps, and heating systems that keep your business open.', href: '#' },
+    { icon: 'ac_unit', title: 'Residential HVAC', desc: 'Mini-splits, heat pumps, AC, and furnace service to keep your family comfortable.', href: '#' },
+    { icon: 'kitchen', title: 'Commercial Refrigeration', desc: 'Walk-ins, reach-ins, ice machines, and the fast response that protects your inventory.', href: '#' },
+    { icon: 'restaurant', title: 'Commercial Kitchen Equipment', desc: 'Fryers, ovens, griddles, and the safety controls behind them — back up fast.', href: '#' },
   ],
 };
 
@@ -86,16 +93,20 @@ export const comfortPlanSection = {
     'Member pricing on repairs',
     'Catches small issues before they become expensive ones',
   ],
-  cta: { label: 'Join the Plan', href: '#' },
+  cta: { label: 'See the Comfort Plan', href: '/comfort-plan' },
   finePrint: 'Terms and conditions apply. Plan starts from date of enrollment.',
 };
 
 export const serviceAreas = {
   heading: 'Proudly Serving the Merrimack Valley & Beyond',
-  desc: 'Based in Methuen, MA, NewGen HVAC provides fast, reliable service to homes and businesses across the region.',
-  // TODO(service-area): confirm against the pruned service-area town list before
-  // turning these into real linked service-area pages.
-  towns: ['Methuen, MA', 'Lawrence, MA', 'Andover, MA', 'Southern NH'],
+  desc: 'Based in Methuen, MA, NewGen HVAC provides fast, reliable service to homes and businesses across the Merrimack Valley, Greater Lowell, and into Southern New Hampshire.',
+  // Real footprint from Docs/00-business-facts.md (pruned list) — a representative
+  // subset for display. Not yet linked (service-area pages not built).
+  towns: [
+    'Methuen, MA', 'Lawrence, MA', 'Haverhill, MA', 'Andover, MA',
+    'North Andover, MA', 'Lowell, MA', 'Dracut, MA', 'Tewksbury, MA',
+    'Salem, NH', 'Windham, NH', 'Derry, NH', 'Pelham, NH',
+  ],
 };
 
 export const faq = {
@@ -104,9 +115,7 @@ export const faq = {
   items: [
     {
       q: 'What areas do you serve?',
-      // TODO(service-area): trimmed to the verified footprint. Confirm extra towns
-      // (North Andover, Salem, Pelham, etc.) against the pruned list before adding.
-      a: "We're based in Methuen, MA and proudly serve the Merrimack Valley — including Lawrence and Andover — and extend into Southern New Hampshire. Not sure if you're in our area? Just ask.",
+      a: "We're based in Methuen, MA and serve the Merrimack Valley and Greater Lowell — including Lawrence, Haverhill, Andover, North Andover, and Lowell — plus Southern New Hampshire towns like Salem, Windham, and Derry. Not sure if you're in our area? Just ask.",
       open: true,
     },
     {
