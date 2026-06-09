@@ -1,0 +1,53 @@
+---
+import { howItWorks } from '../../data/comfort-plan';
+---
+
+<section
+  id="how-it-works"
+  class="py-section-gap bg-surface-container-low px-margin-mobile md:px-margin-desktop scroll-mt-20"
+>
+  <div class="max-w-container-max mx-auto">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-4">
+        {howItWorks.heading}
+      </h2>
+      <p class="font-body-lg text-body-lg text-on-surface-variant">{howItWorks.subcopy}</p>
+    </div>
+
+    <ol class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+      {
+        howItWorks.steps.map((step, i) => (
+          <li class="relative flex flex-col items-center text-center">
+            {/* Connector line to the next step (desktop only) */}
+            {i < howItWorks.steps.length - 1 && (
+              <span
+                aria-hidden="true"
+                class="hidden lg:block absolute top-8 left-1/2 w-full h-px bg-outline-variant/50 -z-0"
+              />
+            )}
+            <div class="relative z-10 bg-white w-16 h-16 rounded-full border-2 border-primary flex items-center justify-center mb-5 shadow-sm">
+              <span class="material-symbols-outlined text-primary text-3xl">{step.icon}</span>
+              <span class="absolute -top-2 -right-2 bg-primary text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">
+                {i + 1}
+              </span>
+            </div>
+            <h3 class="font-headline-md text-lg text-on-surface mb-2">{step.title}</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant">{step.desc}</p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="text-center mt-14">
+      <button
+        type="button"
+        data-lead-modal-open
+        data-lead-title="Join the Comfort Plan"
+        data-lead-service="maintenance"
+        class="bg-primary text-white px-8 py-4 rounded-btn font-label-md shadow-md hover:bg-secondary transition-colors duration-300"
+      >
+        Become a Member
+      </button>
+    </div>
+  </div>
+</section>

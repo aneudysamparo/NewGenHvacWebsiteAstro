@@ -1,0 +1,28 @@
+---
+import { whyJoin } from '../../data/comfort-plan';
+---
+
+<section class="py-section-gap bg-surface px-margin-mobile md:px-margin-desktop">
+  <div class="max-w-container-max mx-auto">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-4">
+        {whyJoin.heading}
+      </h2>
+      <p class="font-body-lg text-body-lg text-on-surface-variant">{whyJoin.body}</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {
+        whyJoin.points.map((point) => (
+          <div class="rounded-card bg-surface-light p-6 border border-outline-variant/30 card-shadow flex flex-col items-center text-center">
+            <div class="bg-secondary-container/30 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+              <span class="material-symbols-outlined text-primary text-3xl">{point.icon}</span>
+            </div>
+            <h3 class="font-headline-md text-lg text-on-surface mb-2">{point.title}</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant">{point.desc}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

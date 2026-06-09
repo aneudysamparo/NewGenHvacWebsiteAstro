@@ -1,0 +1,131 @@
+---
+/*
+ * Reusable lead-capture modal — rendered once by Layout, available site-wide.
+ * Any element with `data-lead-modal-open` opens it. Optional trigger attributes:
+ *   data-lead-title="Join the Comfort Plan"   → overrides the modal heading
+ *   data-lead-service="maintenance"           → preselects the Service field
+ *
+ * TODO(lead-endpoint): submission is intentionally NOT wired (same as the home
+ * LeadForm). Per CLAUDE.md §3/§9 confirm the destination (likely GoHighLevel)
+ * before connecting. onsubmit returns false so it cannot post anywhere yet.
+ */
+import { leadForm } from '../../data/home';
+
+const inputClass =
+  'w-full rounded-btn border-outline-variant/50 focus:border-primary focus:ring-primary bg-surface-light px-4 py-3 font-body-md text-on-surface';
+---
+
+<dialog
+  id="lead-modal"
+  class="backdrop:bg-on-surface/60 backdrop:backdrop-blur-sm bg-transparent p-0 w-full max-w-lg m-auto"
+  aria-labelledby="lead-modal-title"
+>
+  <div class="bg-white rounded-card card-top-border shadow-xl border border-outline-variant/20 relative max-h-[90vh] overflow-y-auto">
+    <button
+      type="button"
+      data-lead-modal-close
+      class="absolute top-4 right-4 text-on-surface-variant hover:text-primary p-1 rounded-full transition-colors"
+      aria-label="Close"
+    >
+      <span class="material-symbols-outlined">close</span>
+    </button>
+
+    <div class="p-6 sm:p-8">
+      <div class="text-center mb-6">
+        <h2 id="lead-modal-title" class="font-headline-md text-headline-md text-on-surface mb-2">
+          {leadForm.heading}
+        </h2>
+        <p class="font-body-md text-body-md text-on-surface-variant">{leadForm.subheading}</p>
+      </div>
+
+      <form class="flex flex-col gap-4" method="post" action="#" novalidate onsubmit="return false;">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="sr-only" for="m-first-name">First Name</label>
+            <input class={inputClass} id="m-first-name" name="first_name" placeholder="First Name" type="text" autocomplete="given-name" required />
+          </div>
+          <div>
+            <label class="sr-only" for="m-last-name">Last Name</label>
+            <input class={inputClass} id="m-last-name" name="last_name" placeholder="Last Name" type="text" autocomplete="family-name" required />
+          </div>
+        </div>
+
+        <div>
+          <label class="sr-only" for="m-phone">Phone Number</label>
+          <input class={inputClass} id="m-phone" name="phone" placeholder="Phone Number" type="tel" autocomplete="tel" required />
+        </div>
+
+        <div>
+          <label class="sr-only" for="m-email">Email Address</label>
+          <input class={inputClass} id="m-email" name="email" placeholder="Email Address" type="email" autocomplete="email" required />
+        </div>
+
+        <div>
+          <label class="sr-only" for="m-service">Service Needed</label>
+          <select class={`${inputClass} text-on-surface-variant`} id="m-service" name="service" required>
+            <option disabled selected value="">Select Service Needed...</option>
+            {leadForm.serviceOptions.map((opt) => <option value={opt.value}>{opt.label}</option>)}
+          </select>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="sr-only" for="m-zip">Town/ZIP</label>
+            <input class={inputClass} id="m-zip" name="zip" placeholder="Town or ZIP" type="text" autocomplete="postal-code" required />
+          </div>
+          <div>
+            <label class="sr-only" for="m-language">Preferred Language</label>
+            <select class={`${inputClass} text-on-surface-variant`} id="m-language" name="language">
+              {leadForm.languageOptions.map((opt) => <option value={opt.value}>{opt.label}</option>)}
+            </select>
+          </div>
+        </div>
+
+        <button
+          class="w-full bg-primary-container hover:bg-primary text-white font-label-md text-[16px] py-4 rounded-btn mt-2 transition-colors flex justify-center items-center gap-2"
+          type="submit"
+        >
+          {leadForm.submitLabel}
+          <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+        </button>
+
+        <div class="text-center mt-3">
+          <p class="font-label-md text-[13px] text-primary flex items-center justify-center gap-1 mb-2">
+            <span class="material-symbols-outlined text-[16px]">check_circle</span>
+            {leadForm.reassurance}
+          </p>
+          <p class="text-[11px] text-outline leading-tight mt-3">{leadForm.smsConsent}</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  const modal = document.getElementById('lead-modal') as HTMLDialogElement | null;
+  if (modal) {
+    const titleEl = modal.querySelector('#lead-modal-title');
+    const serviceEl = modal.querySelector('#m-service') as HTMLSelectElement | null;
+    const defaultTitle = titleEl?.textContent ?? '';
+
+    const openModal = (trigger: HTMLElement) => {
+      const title = trigger.getAttribute('data-lead-title');
+      const service = trigger.getAttribute('data-lead-service');
+      if (titleEl) titleEl.textContent = title || defaultTitle;
+      if (serviceEl && service) serviceEl.value = service;
+      modal.showModal();
+    };
+
+    document.querySelectorAll<HTMLElement>('[data-lead-modal-open]').forEach((btn) =>
+      btn.addEventListener('click', () => openModal(btn))
+    );
+    modal
+      .querySelectorAll<HTMLElement>('[data-lead-modal-close]')
+      .forEach((btn) => btn.addEventListener('click', () => modal.close()));
+
+    // Click on the backdrop (outside the inner card) closes the modal.
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.close();
+    });
+  }
+</script>

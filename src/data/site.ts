@@ -7,7 +7,7 @@
 export const nav = {
   links: [
     { label: 'Services', href: '#' },
-    { label: 'Comfort Plan', href: '#' },
+    { label: 'Comfort Plan', href: '/comfort-plan' },
     { label: 'Service Areas', href: '#' },
     { label: 'Blog', href: '#' },
     { label: 'About', href: '/about' },
@@ -20,7 +20,7 @@ export const footer = {
     // Absolute anchor so it works from any page (jumps to the home hero form).
     { label: 'Free Estimate', href: '/#request-estimate' },
     { label: 'Services', href: '#' },
-    { label: 'Comfort Plan', href: '#' },
+    { label: 'Comfort Plan', href: '/comfort-plan' },
     { label: 'Blog', href: '#' },
     { label: 'About', href: '/about' },
   ],

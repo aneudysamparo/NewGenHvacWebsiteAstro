@@ -1,0 +1,129 @@
+---
+import { tiersSection, tiers, addOn, systemCounting } from '../../data/comfort-plan';
+
+// Literal class strings so Tailwind detects them (per the ServicesGrid pattern).
+const accentBar: Record<string, string> = {
+  secondary: 'bg-secondary',
+  'surface-tint': 'bg-surface-tint',
+};
+const checkColor: Record<string, string> = {
+  secondary: 'text-secondary',
+  primary: 'text-primary',
+};
+---
+
+<section
+  id="plans"
+  class="py-section-gap bg-surface-light px-margin-mobile md:px-margin-desktop scroll-mt-20"
+>
+  <div class="max-w-container-max mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-4">
+        {tiersSection.heading}
+      </h2>
+      <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+        {tiersSection.subcopy}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+      {
+        tiers.map((tier) =>
+          tier.featured ? (
+            <div class="card-top-border bg-surface-container-lowest rounded-card shadow-xl p-8 border-2 border-primary relative overflow-hidden flex flex-col h-full md:-translate-y-4 hover:shadow-2xl transition-shadow duration-300">
+              <div class="absolute top-0 right-0 bg-primary text-white text-xs font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">
+                {tier.badge}
+              </div>
+              <h3 class="font-headline-md text-headline-md text-primary mb-2">{tier.name}</h3>
+              <div class="mb-6">
+                <span class="text-4xl font-bold text-on-surface">{tier.priceAmount}</span>
+                <span class="text-on-surface-variant">{tier.pricePeriod}</span>
+                <div class="text-sm text-outline mt-1">{tier.priceMonthly}</div>
+              </div>
+              <ul class="space-y-4 mb-8 flex-grow">
+                {tier.benefits.map((benefit, i) => (
+                  <li class="flex items-start">
+                    <span class={`material-symbols-outlined ${checkColor[tier.accent]} mr-3 text-xl`}>
+                      check_circle
+                    </span>
+                    <span class={`text-on-surface-variant ${i === 0 ? 'font-semibold' : ''}`}>
+                      {benefit}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <button
+                type="button"
+                data-lead-modal-open
+                data-lead-title={`Join ${tier.name}`}
+                data-lead-service="maintenance"
+                class="w-full bg-primary text-white py-3 rounded-btn font-label-md shadow-md hover:bg-secondary transition-colors duration-300 mt-auto"
+              >
+                {tier.cta.label}
+              </button>
+            </div>
+          ) : (
+            <div class="bg-surface-container-lowest rounded-card card-shadow p-8 border border-outline-variant/20 relative overflow-hidden flex flex-col h-full">
+              <div class={`absolute top-0 left-0 w-full h-1 ${accentBar[tier.accent]}`} />
+              <h3 class="font-headline-md text-headline-md text-primary mb-2">{tier.name}</h3>
+              <div class="mb-6">
+                <span class="text-4xl font-bold text-on-surface">{tier.priceAmount}</span>
+                <span class="text-on-surface-variant">{tier.pricePeriod}</span>
+                <div class="text-sm text-outline mt-1">{tier.priceMonthly}</div>
+              </div>
+              <ul class="space-y-4 mb-8 flex-grow">
+                {tier.benefits.map((benefit) => (
+                  <li class="flex items-start">
+                    <span class={`material-symbols-outlined ${checkColor[tier.accent]} mr-3 text-xl`}>
+                      check_circle
+                    </span>
+                    <span class="text-on-surface-variant">{benefit}</span>
+                  </li>
+                ))}
+              </ul>
+              <button
+                type="button"
+                data-lead-modal-open
+                data-lead-title={`Join ${tier.name}`}
+                data-lead-service="maintenance"
+                class="w-full bg-transparent border-2 border-secondary text-secondary py-3 rounded-btn font-label-md hover:bg-secondary hover:text-white transition-colors duration-300 mt-auto"
+              >
+                {tier.cta.label}
+              </button>
+            </div>
+          )
+        )
+      }
+
+      <!-- Third card: Additional System add-on -->
+      <div class="bg-surface-container-lowest rounded-card card-shadow p-8 border border-outline-variant/20 relative overflow-hidden flex flex-col h-full">
+        <div class={`absolute top-0 left-0 w-full h-1 ${accentBar[addOn.accent]}`}></div>
+        <h3 class="font-headline-md text-headline-md text-primary mb-2">{addOn.name}</h3>
+        <div class="mb-6">
+          <span class="text-4xl font-bold text-on-surface">{addOn.priceAmount}</span>
+          <span class="text-on-surface-variant">{addOn.pricePeriod}</span>
+          <div class="text-sm text-outline mt-1">{addOn.priceMonthly}</div>
+        </div>
+        <p class="text-on-surface-variant mb-6 flex-grow">{addOn.desc}</p>
+        <div class="bg-surface-container-low p-4 rounded-btn flex items-start gap-3 mt-auto">
+          <span class="material-symbols-outlined text-primary text-xl">info</span>
+          <span class="text-sm text-on-surface-variant">{addOn.note}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- System-counting explainer (corrected vs Stitch) -->
+    <div
+      id="how-systems-counted"
+      class="scroll-mt-24 mt-16 bg-surface-bright border border-secondary-container rounded-card p-6 max-w-3xl mx-auto flex flex-col sm:flex-row items-start gap-6 shadow-sm"
+    >
+      <div class="bg-secondary-container/20 p-4 rounded-full text-primary shrink-0">
+        <span class="material-symbols-outlined text-3xl">calculate</span>
+      </div>
+      <div>
+        <h3 class="font-headline-md text-lg text-on-surface mb-2">{systemCounting.heading}</h3>
+        <p class="text-on-surface-variant text-sm">{systemCounting.body}</p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,47 @@
+---
+import { hero } from '../../data/comfort-plan';
+---
+
+<section
+  class="relative bg-surface-container-lowest pt-16 pb-section-gap px-margin-mobile md:px-margin-desktop overflow-hidden"
+>
+  <!-- Subtle atmospheric gradient -->
+  <div
+    class="absolute inset-0 bg-gradient-to-br from-surface-bright via-surface-container-lowest to-surface-container-low opacity-50 z-0"
+  >
+  </div>
+
+  <div class="relative z-10 max-w-container-max mx-auto flex flex-col items-center text-center">
+    <span
+      class="inline-block py-1 px-3 rounded-full bg-surface-container-highest text-primary font-label-md text-label-md uppercase tracking-wider mb-6"
+    >
+      {hero.badge}
+    </span>
+
+    <h1 class="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-on-surface mb-6 max-w-4xl">
+      {hero.headlineLead} <span class="text-primary">{hero.headlineEmphasis}</span>
+    </h1>
+
+    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-10">
+      {hero.subcopy}
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4">
+      <button
+        type="button"
+        data-lead-modal-open
+        data-lead-title="Join the Comfort Plan"
+        data-lead-service="maintenance"
+        class="bg-primary text-white px-8 py-4 rounded-btn font-label-md shadow-md hover:bg-secondary hover:-translate-y-0.5 transition-all duration-300"
+      >
+        {hero.primaryCta.label}
+      </button>
+      <a
+        class="bg-transparent border-2 border-primary text-primary px-8 py-4 rounded-btn font-label-md hover:bg-surface-container transition-all duration-300"
+        href={hero.secondaryCta.href}
+      >
+        {hero.secondaryCta.label}
+      </a>
+    </div>
+  </div>
+</section>

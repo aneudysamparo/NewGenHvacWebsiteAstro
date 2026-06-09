@@ -5,6 +5,7 @@ import SiteHeader from '../components/layout/SiteHeader.astro';
 import FinalCta from '../components/layout/FinalCta.astro';
 import SiteFooter from '../components/layout/SiteFooter.astro';
 import MobileCallBar from '../components/layout/MobileCallBar.astro';
+import LeadModal from '../components/layout/LeadModal.astro';
 
 interface Props {
   title?: string;
@@ -66,5 +67,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://newgenhvac.
     <FinalCta />
     <SiteFooter />
     <MobileCallBar />
+    <LeadModal />
   </body>
 </html>
