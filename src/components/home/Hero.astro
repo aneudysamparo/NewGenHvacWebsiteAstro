@@ -1,0 +1,77 @@
+---
+import { hero } from '../../data/home';
+import { business } from '../../data/business';
+import LeadForm from './LeadForm.astro';
+---
+
+<section
+  class="relative min-h-[600px] md:min-h-[700px] flex items-center pt-10 pb-20 md:py-20 overflow-hidden bg-surface-container-low"
+>
+  <!-- Decorative background (sits behind an 80% surface overlay) -->
+  <div class="absolute inset-0 z-0">
+    <img
+      alt=""
+      aria-hidden="true"
+      class="w-full h-full object-cover"
+      src="/images/hero-equipment.png"
+      loading="eager"
+      decoding="async"
+    />
+    <div class="absolute inset-0 bg-surface/80 backdrop-blur-[2px]"></div>
+  </div>
+
+  <div class="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+      <!-- Left: copy & trust -->
+      <div class="flex flex-col gap-stack-lg text-center lg:text-left">
+        <h1 class="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-on-surface">
+          {hero.headlineLead}
+          <span class="text-primary block mt-2">{hero.headlineEmphasis}</span>
+        </h1>
+        <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl mx-auto lg:mx-0">
+          {hero.subcopy}
+        </p>
+
+        <div
+          class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mt-4"
+        >
+          <a
+            class="flex items-center gap-3 bg-white px-6 py-4 rounded-xl shadow-sm border border-outline-variant/20 hover:border-primary/50 transition-colors w-full sm:w-auto"
+            href={business.phone.href}
+          >
+            <div class="bg-primary/10 p-3 rounded-full text-primary">
+              <span class="material-symbols-outlined fill">phone_in_talk</span>
+            </div>
+            <div class="text-left">
+              <span class="block font-label-md text-label-md text-on-surface-variant"
+                >{hero.emergencyLabel}</span
+              >
+              <span class="block font-headline-md text-[20px] font-bold text-primary"
+                >{business.phone.display}</span
+              >
+            </div>
+          </a>
+        </div>
+
+        <!-- Trust badges -->
+        <div
+          class="flex flex-wrap items-center justify-center lg:justify-start gap-6 mt-8 pt-8 border-t border-outline-variant/30"
+        >
+          {
+            hero.trustBadges.map((badge) => (
+              <div class="flex items-center gap-2 text-on-surface-variant/80">
+                <span class="material-symbols-outlined fill text-secondary">{badge.icon}</span>
+                <span class="font-label-md text-[13px]">{badge.label}</span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Right: lead capture form -->
+      <div class="w-full max-w-md mx-auto lg:ml-auto">
+        <LeadForm />
+      </div>
+    </div>
+  </div>
+</section>

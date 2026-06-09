@@ -1,11 +1,73 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Hero from '../components/home/Hero.astro';
+import Differentiators from '../components/home/Differentiators.astro';
+import ServicesGrid from '../components/home/ServicesGrid.astro';
+import ComfortPlanSection from '../components/home/ComfortPlanSection.astro';
+import ServiceAreas from '../components/home/ServiceAreas.astro';
+import Faq from '../components/home/Faq.astro';
+import Testimonials from '../components/home/Testimonials.astro';
+import FinalCta from '../components/home/FinalCta.astro';
+import { business } from '../data/business';
+import { serviceAreas, faq } from '../data/home';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const siteUrl = (Astro.site ?? new URL('https://newgenhvac.com')).href;
+
+// LocalBusiness structured data for local SEO.
+const businessLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HVACBusiness',
+  name: business.legalName,
+  alternateName: business.name,
+  url: siteUrl,
+  image: new URL('/images/hero-equipment.png', siteUrl).href,
+  logo: new URL('/images/horizontal_logo.png', siteUrl).href,
+  telephone: business.phone.href.replace('tel:', ''),
+  email: business.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: business.address.street,
+    addressLocality: business.address.city,
+    addressRegion: business.address.state,
+    postalCode: business.address.zip,
+    addressCountry: 'US',
+  },
+  areaServed: [...serviceAreas.towns, 'Merrimack Valley', 'Southern New Hampshire'],
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '08:00',
+      closes: '17:00',
+    },
+  ],
+  priceRange: '$$',
+};
+
+// FAQ structured data — answers mirror the visible FAQ section exactly.
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.items.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
 ---
 
 <Layout>
-	<Welcome />
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(businessLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+  </Fragment>
+
+  <Hero />
+  <Differentiators />
+  <ServicesGrid />
+  <ComfortPlanSection />
+  <ServiceAreas />
+  <Faq />
+  <Testimonials />
+  <FinalCta />
 </Layout>

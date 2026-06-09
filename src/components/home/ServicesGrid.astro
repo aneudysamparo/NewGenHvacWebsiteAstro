@@ -1,0 +1,58 @@
+---
+import { servicesSection } from '../../data/home';
+
+// Per-card accent treatment (by index), matching the Stitch design exactly.
+// Literal class strings so Tailwind detects them.
+const variants = [
+  { iconWrap: 'bg-secondary/10', icon: 'text-secondary', hover: 'from-primary/5', link: 'text-primary' },
+  { iconWrap: 'bg-emergency-orange/10', icon: 'text-emergency-orange', hover: 'from-emergency-orange/5', link: 'text-emergency-orange' },
+  { iconWrap: 'bg-secondary-container/30', icon: 'text-primary', hover: 'from-secondary-container/20', link: 'text-primary' },
+  { iconWrap: 'bg-primary/10', icon: 'text-primary', hover: 'from-primary/5', link: 'text-primary' },
+];
+---
+
+<section class="py-section-gap bg-surface px-margin-mobile md:px-margin-desktop">
+  <div class="max-w-container-max mx-auto">
+    <div class="text-center mb-16">
+      <h2
+        class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-4"
+      >
+        {servicesSection.heading}
+      </h2>
+      <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+        {servicesSection.subcopy}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {
+        servicesSection.items.map((service, i) => (
+          <div class="rounded-card bg-surface-light p-8 border border-outline-variant/30 card-shadow relative group overflow-hidden flex flex-col items-center text-center">
+            <div
+              class={`absolute inset-0 bg-gradient-to-br ${variants[i].hover} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+            />
+            <div
+              class={`${variants[i].iconWrap} w-20 h-20 rounded-full flex items-center justify-center mb-6 relative z-10`}
+            >
+              <span class={`material-symbols-outlined ${variants[i].icon} text-4xl`}>
+                {service.icon}
+              </span>
+            </div>
+            <h3 class="font-headline-md text-headline-md text-on-surface mb-3 relative z-10">
+              {service.title}
+            </h3>
+            <p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow relative z-10">
+              {service.desc}
+            </p>
+            <a
+              class={`${variants[i].link} font-label-md flex items-center justify-center gap-1 hover:gap-2 transition-all mt-auto relative z-10`}
+              href={service.href}
+            >
+              Learn More <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </a>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,134 @@
+---
+import { business } from '../../data/business';
+import { footer } from '../../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer
+  class="bg-inverse-surface text-inverse-on-surface py-16 px-margin-mobile md:px-margin-desktop"
+>
+  <div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+    <!-- Brand & about -->
+    <div>
+      <a class="inline-flex bg-white rounded-lg p-3 mb-6" href="/">
+        <img
+          src="/images/horizontal_logo.png"
+          alt="New Generation HVAC"
+          width="1640"
+          height="521"
+          class="h-10 w-auto"
+        />
+      </a>
+      <p class="font-body-md text-inverse-on-surface/80 mb-6">{footer.about}</p>
+      <div class="flex gap-4">
+        <a
+          class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
+          href={business.social.facebook}
+          aria-label="Facebook"
+        >
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true"
+            ><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path></svg
+          >
+        </a>
+        <a
+          class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
+          href={business.social.instagram}
+          aria-label="Instagram"
+        >
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true"
+            ><rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect><path
+              d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path><line
+              x1="17.5"
+              x2="17.51"
+              y1="6.5"
+              y2="6.5"></line></svg
+          >
+        </a>
+        <a
+          class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
+          href={business.social.linkedin}
+          aria-label="LinkedIn"
+        >
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true"
+            ><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"
+            ></path><circle cx="4" cy="4" r="2"></circle></svg
+          >
+        </a>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div>
+      <h2 class="font-headline-md text-lg text-white mb-6">Contact Us</h2>
+      <ul class="flex flex-col gap-4 font-body-md text-inverse-on-surface/80">
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-secondary-container mt-1 text-[20px]"
+            >location_on</span
+          >
+          <span>{business.address.street}<br />{business.address.city}, {business.address.state}
+            {business.address.zip}</span
+          >
+        </li>
+        <li class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-secondary-container text-[20px]">call</span>
+          <a class="hover:text-white transition-colors" href={business.phone.href}
+            >{business.phone.display}</a
+          >
+        </li>
+        <li class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-secondary-container text-[20px]">mail</span>
+          <a class="hover:text-white transition-colors" href={`mailto:${business.email}`}
+            >{business.email}</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <!-- Hours -->
+    <div>
+      <h2 class="font-headline-md text-lg text-white mb-6">Business Hours</h2>
+      <ul class="flex flex-col gap-3 font-body-md text-inverse-on-surface/80">
+        <li class="flex justify-between">
+          <span>{business.hours.weekdaysLabel}</span>
+          <span>{business.hours.weekdaysValue}</span>
+        </li>
+        <li class="flex justify-between border-t border-white/10 pt-3 mt-1">
+          <span class="font-semibold text-emergency-orange">{business.hours.emergencyLabel}</span>
+          <span class="font-semibold text-emergency-orange">{business.hours.emergencyValue}</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Quick links -->
+    <div>
+      <h2 class="font-headline-md text-lg text-white mb-6">Quick Links</h2>
+      <ul class="flex flex-col gap-3 font-body-md text-inverse-on-surface/80">
+        {
+          footer.quickLinks.map((link) => (
+            <li>
+              <a class="hover:text-white transition-colors" href={link.href}>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="mt-6">
+        <button
+          class="flex items-center gap-2 text-sm text-inverse-on-surface/80 hover:text-white transition-colors"
+          type="button"
+        >
+          <span class="material-symbols-outlined text-[18px]">language</span>
+          English / Español
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="max-w-container-max mx-auto mt-12 pt-8 border-t border-white/10 text-center font-body-md text-sm text-inverse-on-surface/60"
+  >
+    <p>© {year} {business.legalName}. All rights reserved.</p>
+  </div>
+</footer>

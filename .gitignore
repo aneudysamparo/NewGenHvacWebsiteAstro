@@ -17,6 +17,12 @@ pnpm-debug.log*
 .env
 .env.production
 
+# local MCP config (contains the Stitch API key — keep out of git)
+.mcp.json
+
+.stitch 
+.claude
+
 # macOS-specific files
 .DS_Store
 

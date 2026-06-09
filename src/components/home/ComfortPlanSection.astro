@@ -1,0 +1,55 @@
+---
+import { comfortPlanSection as cp } from '../../data/home';
+---
+
+<section class="py-section-gap bg-surface-container-low px-margin-mobile md:px-margin-desktop">
+  <div class="max-w-container-max mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-4">
+        {cp.heading}
+      </h2>
+      <p class="font-body-lg text-on-surface-variant max-w-2xl mx-auto">{cp.subcopy}</p>
+    </div>
+
+    <div class="max-w-md mx-auto">
+      <div
+        class="bg-white rounded-card shadow-xl border border-outline-variant/30 overflow-hidden relative"
+      >
+        <div
+          class="bg-emergency-orange text-white text-center py-2 font-label-md text-xs uppercase tracking-widest"
+        >
+          {cp.badge}
+        </div>
+        <div class="p-10">
+          <div class="text-center mb-8">
+            <h3 class="font-headline-md text-2xl text-primary mb-2">{cp.planName}</h3>
+            <div class="flex items-center justify-center gap-1">
+              <span class="text-2xl font-bold text-on-surface self-start mt-1">{cp.priceCurrency}</span>
+              <span class="text-6xl font-bold text-on-surface">{cp.priceAmount}</span>
+              <span class="text-on-surface-variant font-body-md">{cp.pricePeriod}</span>
+            </div>
+          </div>
+
+          <ul class="space-y-4 mb-10">
+            {
+              cp.benefits.map((benefit) => (
+                <li class="flex items-center gap-3">
+                  <span class="material-symbols-outlined text-secondary font-bold text-xl">check</span>
+                  <span class="font-body-md text-on-surface">{benefit}</span>
+                </li>
+              ))
+            }
+          </ul>
+
+          <a
+            class="block text-center w-full airflow-gradient text-white font-label-md py-5 rounded-btn shadow-lg hover:brightness-110 transition-all uppercase tracking-wider"
+            href={cp.cta.href}
+          >
+            {cp.cta.label}
+          </a>
+          <p class="text-center text-xs text-on-surface-variant mt-6">{cp.finePrint}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

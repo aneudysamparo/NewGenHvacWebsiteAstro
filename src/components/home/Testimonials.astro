@@ -1,0 +1,53 @@
+---
+import { testimonials } from '../../data/home';
+
+const avatar: Record<string, string> = {
+  primary: 'bg-primary/10 text-primary',
+  secondary: 'bg-secondary/10 text-secondary',
+  'emergency-orange': 'bg-emergency-orange/10 text-emergency-orange',
+};
+---
+
+{/* TODO(reviews): placeholder reviews kept temporarily per request. Replace with
+    real Google reviews before launch — CLAUDE.md §6.5. */}
+<section class="py-section-gap bg-surface px-margin-mobile md:px-margin-desktop">
+  <div class="max-w-container-max mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-4">
+        {testimonials.heading}
+      </h2>
+      <div class="flex items-center justify-center gap-2 text-emergency-orange mb-2" aria-hidden="true">
+        {Array.from({ length: 5 }).map(() => <span class="material-symbols-outlined fill">star</span>)}
+      </div>
+      <p class="font-body-md text-on-surface-variant">{testimonials.ratingNote}</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {
+        testimonials.reviews.map((review) => (
+          <figure class="bg-white p-6 rounded-card border border-outline-variant/30 card-shadow flex flex-col">
+            <figcaption class="flex items-center gap-4 mb-4">
+              <div
+                class={`w-12 h-12 ${avatar[review.accent]} rounded-full flex items-center justify-center font-bold text-xl`}
+              >
+                {review.initial}
+              </div>
+              <div>
+                <p class="font-headline-md text-base text-on-surface font-semibold">{review.name}</p>
+                <div class="flex text-emergency-orange text-sm" aria-hidden="true">
+                  {Array.from({ length: 5 }).map(() => (
+                    <span class="material-symbols-outlined fill text-[16px]">star</span>
+                  ))}
+                </div>
+                <span class="sr-only">Rated 5 out of 5 stars</span>
+              </div>
+            </figcaption>
+            <blockquote class="font-body-md text-on-surface-variant flex-grow italic">
+              {review.quote}
+            </blockquote>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>
