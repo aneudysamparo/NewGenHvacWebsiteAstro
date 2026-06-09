@@ -1,0 +1,9 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AreasIndex from '../components/service-areas/AreasIndex.astro';
+import { index } from '../data/service-areas';
+---
+
+<Layout title={index.title} description={index.metaDescription}>
+  <AreasIndex />
+</Layout>

@@ -1,0 +1,88 @@
+---
+import { index, towns } from '../../data/service-areas';
+
+const regions = [
+  { label: 'Massachusetts — Merrimack Valley & Greater Lowell', state: 'MA' },
+  { label: 'Southern New Hampshire', state: 'NH' },
+];
+const featured = (st: string) => towns.filter((t) => t.state === st && 'page' in t);
+const others = (st: string) => towns.filter((t) => t.state === st && !('page' in t));
+---
+
+<!-- Hero -->
+<section
+  class="bg-gradient-to-br from-surface to-surface-container-low px-margin-mobile md:px-margin-desktop py-section-gap"
+>
+  <div class="max-w-container-max mx-auto text-center">
+    <span
+      class="inline-block py-1 px-3 rounded-full bg-surface-container-highest text-primary font-label-md text-label-md uppercase tracking-wider mb-6"
+    >
+      Service Areas
+    </span>
+    <h1 class="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-on-surface mb-6 max-w-4xl mx-auto">
+      {index.heading}
+    </h1>
+    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-8">{index.intro}</p>
+    <button
+      type="button"
+      data-lead-modal-open
+      data-lead-title="Get a Free Estimate"
+      class="bg-primary text-white px-8 py-4 rounded-btn font-label-md shadow-md hover:bg-secondary transition-colors duration-300"
+    >
+      Get a Free Estimate
+    </button>
+  </div>
+</section>
+
+<!-- Town listing -->
+<section class="px-margin-mobile md:px-margin-desktop py-section-gap bg-surface">
+  <div class="max-w-container-max mx-auto flex flex-col gap-16">
+    {
+      regions.map((region) => (
+        <div>
+          <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-8">
+            {region.label}
+          </h2>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featured(region.state).map((t) => (
+              <a
+                href={`/service-areas/${t.slug}`}
+                class="group bg-surface-light rounded-card border border-outline-variant/30 card-shadow p-6 flex flex-col gap-2"
+              >
+                <div class="flex items-center justify-between">
+                  <h3 class="font-headline-md text-lg text-primary">
+                    {t.town}, {t.state}
+                  </h3>
+                  <span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">
+                    arrow_forward
+                  </span>
+                </div>
+                <p class="font-body-md text-body-md text-on-surface-variant">{t.hook}</p>
+              </a>
+            ))}
+          </div>
+
+          {others(region.state).length > 0 && (
+            <div class="mt-8">
+              <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-3">
+                Also serving
+              </p>
+              <div class="flex flex-wrap gap-2">
+                {others(region.state).map((t) => (
+                  <span class="inline-block bg-surface-container-low text-on-surface-variant rounded-full px-4 py-1.5 font-body-md text-sm border border-outline-variant/30">
+                    {t.town}, {t.state}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      ))
+    }
+
+    <p class="font-body-md text-body-md text-on-surface-variant text-center max-w-2xl mx-auto">
+      {index.featuredNote}
+    </p>
+  </div>
+</section>

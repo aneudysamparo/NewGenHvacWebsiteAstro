@@ -1,0 +1,45 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AreaDetail from '../../components/service-areas/AreaDetail.astro';
+import { towns } from '../../data/service-areas';
+import { business } from '../../data/business';
+
+export function getStaticPaths() {
+  return towns
+    .filter((t) => 'page' in t)
+    .map((town) => ({ params: { slug: town.slug }, props: { town } }));
+}
+
+const { town } = Astro.props;
+const place = `${town.town}, ${town.state}`;
+const title = `HVAC & Refrigeration in ${place} | NewGen HVAC`;
+const description = `Bilingual HVAC, commercial refrigeration & kitchen equipment service in ${place}. Family-run, fast response, 24/7 emergency. Call ${business.phone.display}.`;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://newgenhvac.com').href;
+
+// LocalBusiness schema with this town in areaServed (per the service-area template).
+const localBusinessLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HVACBusiness',
+  name: business.legalName,
+  alternateName: business.name,
+  telephone: business.phone.href.replace('tel:', ''),
+  email: business.email,
+  url: canonical,
+  areaServed: { '@type': 'City', name: place },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: business.address.street,
+    addressLocality: business.address.city,
+    addressRegion: business.address.state,
+    postalCode: business.address.zip,
+    addressCountry: 'US',
+  },
+};
+---
+
+<Layout title={title} description={description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(localBusinessLd)} />
+  </Fragment>
+  <AreaDetail town={town} />
+</Layout>

@@ -8,7 +8,7 @@ export const nav = {
   links: [
     { label: 'Services', href: '/services' },
     { label: 'Comfort Plan', href: '/comfort-plan' },
-    { label: 'Service Areas', href: '#' },
+    { label: 'Service Areas', href: '/service-areas' },
     { label: 'Blog', href: '#' },
     { label: 'About', href: '/about' },
   ],
@@ -21,6 +21,7 @@ export const footer = {
     { label: 'Free Estimate', href: '/#request-estimate' },
     { label: 'Services', href: '/services' },
     { label: 'Comfort Plan', href: '/comfort-plan' },
+    { label: 'Service Areas', href: '/service-areas' },
     { label: 'Blog', href: '#' },
     { label: 'About', href: '/about' },
   ],

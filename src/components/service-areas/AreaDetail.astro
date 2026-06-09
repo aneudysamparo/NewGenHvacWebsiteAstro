@@ -1,0 +1,144 @@
+---
+import { business } from '../../data/business';
+import { differentiators } from '../../data/home';
+import { grid as servicesGrid } from '../../data/services';
+import { towns, type Town } from '../../data/service-areas';
+
+interface Props {
+  town: Town;
+}
+const { town } = Astro.props;
+const place = `${town.town}, ${town.state}`;
+
+// Resolve nearby slugs → town objects (only featured towns are referenced).
+const nearbySlugs = ('page' in town && town.page.nearby) || [];
+const nearby = nearbySlugs
+  .map((slug) => towns.find((t) => t.slug === slug))
+  .filter((t): t is Town => Boolean(t));
+
+// Moat color map (matches the Differentiators component).
+const iconWrap: Record<string, string> = {
+  primary: 'bg-primary/10 text-primary',
+  'emergency-orange': 'bg-emergency-orange/10 text-emergency-orange',
+  secondary: 'bg-secondary/10 text-secondary',
+};
+---
+
+<!-- Breadcrumbs -->
+<nav aria-label="Breadcrumb" class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-6">
+  <ol class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md flex-wrap">
+    <li><a class="hover:text-primary flex items-center gap-1" href="/"><span class="material-symbols-outlined text-[18px]">home</span>Home</a></li>
+    <li aria-hidden="true"><span class="material-symbols-outlined text-[16px]">chevron_right</span></li>
+    <li><a class="hover:text-primary" href="/service-areas">Service Areas</a></li>
+    <li aria-hidden="true"><span class="material-symbols-outlined text-[16px]">chevron_right</span></li>
+    <li class="text-primary font-bold" aria-current="page">{place}</li>
+  </ol>
+</nav>
+
+<!-- Hero -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-gap">
+  <div class="relative overflow-hidden rounded-card bg-primary-container p-8 md:p-14 lg:p-20">
+    <div class="relative z-10 max-w-3xl">
+      <span class="inline-flex items-center gap-2 bg-white/10 text-white border border-white/20 px-4 py-1.5 rounded-full font-label-md text-label-md mb-6">
+        <span class="material-symbols-outlined text-[18px]">near_me</span>
+        Dispatched from Methuen, MA
+      </span>
+      <h1 class="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-white mb-6 leading-tight">
+        HVAC & Commercial Refrigeration in {place}
+      </h1>
+      <p class="font-body-lg text-body-lg text-white/85 mb-10">
+        {'page' in town ? town.page.localIntro : town.hook}
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <button
+          type="button"
+          data-lead-modal-open
+          data-lead-title={`Free Estimate — ${place}`}
+          class="bg-white text-primary px-8 py-4 rounded-btn font-label-md font-bold shadow-lg hover:bg-surface-container-low transition-all"
+        >
+          Free Estimate
+        </button>
+        <a
+          class="flex items-center justify-center gap-2 border-2 border-white/30 text-white px-8 py-4 rounded-btn font-label-md font-bold hover:bg-white/10 transition-all"
+          href={business.phone.href}
+        >
+          <span class="material-symbols-outlined">call</span>
+          Call {business.phone.display}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services we provide here -->
+<section class="bg-surface-container-low px-margin-mobile md:px-margin-desktop py-section-gap">
+  <div class="max-w-container-max mx-auto">
+    <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-8 text-center">
+      Services we provide in {town.town}
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {
+        servicesGrid.services.map((service) => (
+          <a
+            href={service.href}
+            class="group bg-white rounded-card border border-outline-variant/30 card-shadow p-6 flex flex-col items-start gap-3"
+          >
+            <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+              <span class="material-symbols-outlined text-primary text-2xl">{service.icon}</span>
+            </div>
+            <h3 class="font-headline-md text-lg text-on-surface">{service.title}</h3>
+            <span class="text-primary font-label-md flex items-center gap-1 mt-auto group-hover:gap-2 transition-all">
+              Learn more <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Why this town chooses NewGen -->
+<section class="px-margin-mobile md:px-margin-desktop py-section-gap bg-surface">
+  <div class="max-w-container-max mx-auto">
+    <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-12 text-center">
+      Why {town.town} chooses NewGen
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {
+        differentiators.map((item) => (
+          <div class="flex items-start gap-4">
+            <div class={`${iconWrap[item.color]} p-4 rounded-full shrink-0`}>
+              <span class="material-symbols-outlined text-3xl">{item.icon}</span>
+            </div>
+            <div>
+              <h3 class="font-headline-md text-lg text-on-surface mb-1">{item.title}</h3>
+              <p class="font-body-md text-sm text-on-surface-variant">{item.desc}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Nearby areas -->
+{
+  nearby.length > 0 && (
+    <section class="bg-surface-light px-margin-mobile md:px-margin-desktop py-section-gap">
+      <div class="max-w-container-max mx-auto">
+        <h2 class="font-headline-md text-headline-md text-on-surface mb-6">Nearby areas we serve</h2>
+        <div class="flex flex-wrap gap-3">
+          {nearby.map((t) => (
+            <a
+              href={`/service-areas/${t.slug}`}
+              class="inline-flex items-center gap-2 bg-white border border-outline-variant/30 rounded-full px-5 py-2.5 font-label-md text-on-surface hover:border-primary hover:text-primary transition-colors"
+            >
+              {t.town}, {t.state}
+              <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
