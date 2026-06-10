@@ -2,5 +2,4 @@
 User-agent: *
 Allow: /
 
-# Enable once @astrojs/sitemap is added:
-# Sitemap: https://newgenhvac.com/sitemap-index.xml
+Sitemap: https://newgenhvac.com/sitemap-index.xml

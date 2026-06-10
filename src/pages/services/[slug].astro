@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import ServiceDetail from '../../components/service-detail/ServiceDetail.astro';
 import { serviceDetails } from '../../data/service-details';
+import { business } from '../../data/business';
 
 export function getStaticPaths() {
   return Object.entries(serviceDetails).map(([slug, service]) => ({
@@ -11,8 +12,47 @@ export function getStaticPaths() {
 }
 
 const { service } = Astro.props;
+const fallback = 'https://newgenhvac.com';
+const origin = (Astro.site ?? new URL(fallback)).origin;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? fallback).href;
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${origin}/` },
+    { '@type': 'ListItem', position: 2, name: 'Services', item: `${origin}/services` },
+    { '@type': 'ListItem', position: 3, name: service.breadcrumb, item: canonical },
+  ],
+};
+
+const serviceLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: service.breadcrumb,
+  serviceType: service.breadcrumb,
+  description: service.seo.description,
+  url: canonical,
+  areaServed: business.areaLabel,
+  provider: { '@id': `${origin}/#organization` },
+};
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: service.faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
 ---
 
 <Layout title={service.seo.title} description={service.seo.description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(serviceLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+  </Fragment>
   <ServiceDetail service={service} />
 </Layout>

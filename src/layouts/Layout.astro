@@ -12,14 +12,62 @@ import FormToWhatsApp from '../components/layout/FormToWhatsApp.astro';
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
 }
 
 const {
   title = `${business.name} — ${business.tagline}`,
-  description = 'Expert HVAC and commercial refrigeration for homes and businesses across the Merrimack Valley & Southern NH. Licensed, insured, bilingual. Free estimates.',
+  description = 'Expert HVAC and commercial refrigeration for homes and businesses across the Merrimack Valley & Southern NH. Bilingual. Free estimates.',
+  image = '/images/Logo-New-Generation-HVAC.png',
 } = Astro.props;
 
-const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://newgenhvac.com');
+const fallback = 'https://newgenhvac.com';
+const siteOrigin = (Astro.site ?? new URL(fallback)).origin;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? fallback);
+const ogImage = new URL(image, Astro.site ?? fallback).href;
+const phone = business.phone.href.replace('tel:', '');
+
+// Sitewide brand structured data — helps Google understand the brand (knowledge
+// panel / sitelinks). Page-specific schema (LocalBusiness, FAQ, breadcrumbs) is
+// added per page via the head slot.
+const orgLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${siteOrigin}/#organization`,
+      name: business.name,
+      legalName: business.legalName,
+      url: `${siteOrigin}/`,
+      logo: `${siteOrigin}/images/horizontal_logo.png`,
+      email: business.email,
+      telephone: phone,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: business.address.street,
+        addressLocality: business.address.city,
+        addressRegion: business.address.state,
+        postalCode: business.address.zip,
+        addressCountry: 'US',
+      },
+      areaServed: business.areaLabel,
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: phone,
+        contactType: 'customer service',
+        availableLanguage: ['English', 'Spanish'],
+      },
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteOrigin}/#website`,
+      name: business.name,
+      url: `${siteOrigin}/`,
+      inLanguage: 'en',
+      publisher: { '@id': `${siteOrigin}/#organization` },
+    },
+  ],
+};
 ---
 
 <!doctype html>
@@ -43,7 +91,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://newgenhvac.
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical.href} />
+    <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Sitewide brand structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

@@ -5,12 +5,26 @@ import WhyJoin from '../components/comfort-plan/WhyJoin.astro';
 import PricingTiers from '../components/comfort-plan/PricingTiers.astro';
 import HowItWorks from '../components/comfort-plan/HowItWorks.astro';
 import Faq from '../components/comfort-plan/Faq.astro';
+import { faqs } from '../data/comfort-plan';
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.items.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
 ---
 
 <Layout
   title="Comfort Plan — HVAC Maintenance Membership | NewGen HVAC"
   description="Keep your home comfortable all year with the NewGen Comfort Plan. Seasonal tune-ups, priority scheduling, and member pricing on repairs for homes across the Merrimack Valley & Southern NH."
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+  </Fragment>
   <Hero />
   <WhyJoin />
   <PricingTiers />
