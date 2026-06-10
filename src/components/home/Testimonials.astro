@@ -1,5 +1,6 @@
 ---
 import { testimonials } from '../../data/home';
+import { business } from '../../data/business';
 
 const avatar: Record<string, string> = {
   primary: 'bg-primary/10 text-primary',
@@ -8,18 +9,30 @@ const avatar: Record<string, string> = {
 };
 ---
 
-{/* TODO(reviews): placeholder reviews kept temporarily per request. Replace with
-    real Google reviews before launch — CLAUDE.md §6.5. */}
+{/* Rating + count are REAL (Google Business Profile: business.reviews). The 3
+    quote CARDS below are still PLACEHOLDER — replace with real review text
+    before launch (CLAUDE.md §6.5). */}
 <section class="py-section-gap bg-surface px-margin-mobile md:px-margin-desktop">
   <div class="max-w-container-max mx-auto">
     <div class="text-center mb-12">
       <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-4">
         {testimonials.heading}
       </h2>
-      <div class="flex items-center justify-center gap-2 text-emergency-orange mb-2" aria-hidden="true">
-        {Array.from({ length: 5 }).map(() => <span class="material-symbols-outlined fill">star</span>)}
+      <div class="flex items-center justify-center gap-2 mb-2">
+        <span class="font-headline-md text-2xl font-bold text-on-surface">{business.reviews.rating}</span>
+        <div class="flex text-emergency-orange" aria-hidden="true">
+          {Array.from({ length: 5 }).map(() => <span class="material-symbols-outlined fill">star</span>)}
+        </div>
       </div>
-      <p class="font-body-md text-on-surface-variant">{testimonials.ratingNote}</p>
+      <a
+        href={business.reviews.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-1 font-body-md text-primary hover:text-secondary transition-colors"
+      >
+        {business.reviews.count} reviews on Google
+        <span class="material-symbols-outlined text-[18px]">open_in_new</span>
+      </a>
     </div>
 
     <div

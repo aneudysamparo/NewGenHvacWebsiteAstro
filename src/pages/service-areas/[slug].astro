@@ -34,6 +34,13 @@ const localBusinessLd = {
     postalCode: business.address.zip,
     addressCountry: 'US',
   },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: business.reviews.rating,
+    reviewCount: business.reviews.count,
+    bestRating: 5,
+  },
+  sameAs: [business.reviews.url],
 };
 
 // Breadcrumb trail (rich result).

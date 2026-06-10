@@ -23,4 +23,6 @@ export const business = {
   },
   // TODO(social): replace with real profile URLs.
   social: { facebook: '#', instagram: '#', linkedin: '#' },
+  // Google Business Profile — real, verified by owner (2026-06-09).
+  reviews: { rating: 4.9, count: 56, url: 'https://share.google/IHKkCSNWwc9nY7LBK' },
 } as const;

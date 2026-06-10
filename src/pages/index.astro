@@ -16,6 +16,7 @@ const siteUrl = (Astro.site ?? new URL('https://newgenhvac.com')).href;
 const businessLd = {
   '@context': 'https://schema.org',
   '@type': 'HVACBusiness',
+  '@id': new URL('/#organization', siteUrl).href,
   name: business.legalName,
   alternateName: business.name,
   url: siteUrl,
@@ -41,6 +42,13 @@ const businessLd = {
     },
   ],
   priceRange: '$$',
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: business.reviews.rating,
+    reviewCount: business.reviews.count,
+    bestRating: 5,
+  },
+  sameAs: [business.reviews.url],
 };
 
 // FAQ structured data — answers mirror the visible FAQ section exactly.
