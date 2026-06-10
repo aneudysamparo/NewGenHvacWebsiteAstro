@@ -140,14 +140,20 @@ export const testimonials = {
   heading: 'What Our Customers Say',
   ratingNote: 'Top-rated service on Google Reviews',
   /*
-   * TODO(reviews): PLACEHOLDER reviews — kept temporarily at the owner's request
-   * ("mantén reseñas falsas por ahora"). CLAUDE.md §6.5 requires REAL Google
-   * reviews and forbids placeholders in production. REPLACE BEFORE LAUNCH.
+   * REAL Google reviews from the Google Business Profile (pulled 2026-06-09),
+   * verbatim and only trimmed for length with "…". Replaces the old placeholders
+   * (§6.5 satisfied). Chosen for a mix of commercial + residential, emergency,
+   * fast response, and honesty/fair pricing, with the owner Jean by name. Reviews
+   * that mentioned plumbing were skipped — not a listed service.
+   * TODO(reviews): owner wants these DYNAMIC later (scraper/API) + reviewer photos.
    */
   reviews: [
-    { initial: 'M', accent: 'primary', name: 'Michael T.', quote: 'NewGen saved us during a heatwave! The technician arrived quickly, diagnosed the AC issue right away, and had it running beautifully within an hour. Highly recommend!' },
-    { initial: 'S', accent: 'secondary', name: 'Sarah P.', quote: "We use NewGen for all our restaurant's refrigeration needs. They understand that downtime costs us money and are always responsive and professional. Excellent commercial service." },
-    { initial: 'D', accent: 'emergency-orange', name: 'David R.', quote: 'Signed up for their Comfort Plan last year. The peace of mind knowing our furnace is ready for winter is great. Very polite and thorough technicians. Hablan español, which is a big plus for my parents.' },
+    { initial: 'B', accent: 'primary', name: 'Benjamin Suero', quote: "Reliable, quick, friendly and no gimmick. Affordable pricing for commercial and residential. … They are fully knowledgeable and when they don't know an answer they are up front about it and won't charge you unwanted diagnostic fees like these other companies in the area." },
+    { initial: 'E', accent: 'secondary', name: 'Esthefanie Castillo', quote: "I've worked with New Generation HVAC on both my personal properties and several commercial projects, and they've been great every time. Jean is easy to work with, responsive, and really knows his stuff. Jean and his team are consistently reliable, knowledgeable, and professional in every aspect of the job." },
+    { initial: 'L', accent: 'emergency-orange', name: 'Luis Castillo', quote: "I had an emergency at home and they came promptly and efficiently to resolve the problem. Jean, the owner, was very professional and friendly. He and his team took great care of us and got us up and running for a good price. It's been a couple years and we didn't have any issues." },
+    { initial: 'P', accent: 'primary', name: 'Praveen', quote: 'I highly recommend Jean from New Generation HVAC for furnace repairs. He arrived on time, quickly identified an issue, and clearly explained the repair process and ongoing maintenance to prevent future problems. Jean is professional, honest, and highly knowledgeable.' },
+    { initial: 'R', accent: 'secondary', name: 'Rose Nivar', quote: 'Jean came out to check our HVAC system and did an excellent job. He was fast, efficient, and very knowledgeable. He took the time to explain what he was doing and made sure everything was running properly before he left. Highly recommend!' },
+    { initial: 'D', accent: 'emergency-orange', name: 'Don D.', quote: 'Amazing quick response time. They scheduled service and were here in 2 days. So far very happy with the customer service.' },
   ],
 };
 
