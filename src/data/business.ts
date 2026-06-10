@@ -13,7 +13,7 @@ export const business = {
   tagline: 'HVAC & Commercial Refrigeration',
   phone: { display: '(978) 876-8558', href: 'tel:+19788768558' },
   email: 'jc@newgenhvac.com',
-  address: { street: '1 Annis St', city: 'Methuen', state: 'MA', zip: '01844' },
+  address: { street: '18 Annis St', city: 'Methuen', state: 'MA', zip: '01844' },
   areaLabel: 'Merrimack Valley & Southern NH',
   hours: {
     weekdaysLabel: 'Mon – Fri:',

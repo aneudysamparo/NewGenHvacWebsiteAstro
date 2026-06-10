@@ -1,5 +1,7 @@
 ---
 import { serviceAreas } from '../../data/home';
+import { business } from '../../data/business';
+import MapEmbed from '../layout/MapEmbed.astro';
 ---
 
 <section
@@ -30,14 +32,12 @@ import { serviceAreas } from '../../data/home';
       </a>
     </div>
 
-    {/* TODO(map): placeholder — swap for a real service-area map embed. */}
-    <div class="flex-1 w-full h-64 md:h-80 bg-surface-container rounded-card overflow-hidden relative">
-      <div class="absolute inset-0 flex items-center justify-center">
-        <span class="material-symbols-outlined text-6xl text-outline-variant/50">map</span>
-        <p class="absolute bottom-4 right-4 text-sm text-outline-variant font-label-md">
-          Service Area Map
-        </p>
-      </div>
+    <div class="flex-1 w-full h-64 md:h-80 rounded-card overflow-hidden border border-outline-variant/30 shadow-sm">
+      <MapEmbed
+        query={`${business.address.city}, ${business.address.state}`}
+        zoom={9}
+        title="NewGen HVAC service area — Merrimack Valley & Southern New Hampshire"
+      />
     </div>
   </div>
 </section>

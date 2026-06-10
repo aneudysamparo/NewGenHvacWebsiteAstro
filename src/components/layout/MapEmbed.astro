@@ -1,0 +1,21 @@
+---
+/*
+ * Reusable Google Maps embed (keyless — no API key needed). The caller wraps it
+ * in a sized, rounded container; the iframe fills it (w-full h-full).
+ *   Contact: street-level pin on the office.   Home: zoomed-out service region.
+ */
+interface Props {
+  query: string;
+  zoom?: number;
+  title: string;
+}
+const { query, zoom = 13, title } = Astro.props;
+const src = `https://maps.google.com/maps?q=${encodeURIComponent(query)}&z=${zoom}&output=embed`;
+---
+
+<iframe
+  title={title}
+  src={src}
+  loading="lazy"
+  referrerpolicy="no-referrer-when-downgrade"
+  class="w-full h-full border-0"></iframe>
