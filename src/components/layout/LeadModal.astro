@@ -5,12 +5,13 @@
  *   data-lead-title="Join the Comfort Plan"   → overrides the modal heading
  *   data-lead-service="maintenance"           → preselects the Service field
  *
- * TODO(lead-endpoint): submission is intentionally NOT wired (same as the home
- * LeadForm). Per CLAUDE.md §3/§9 confirm the destination (likely GoHighLevel)
- * before connecting. onsubmit returns false so it cannot post anywhere yet.
+ * INTERIM: submits to WhatsApp with the entered details pre-filled (see
+ * FormToWhatsApp.astro). Real Jobber/GoHighLevel wiring comes later (§3/§9).
  */
 import { leadForm } from '../../data/home';
+import { business } from '../../data/business';
 
+const waNumber = business.phone.href.replace(/\D/g, '');
 const inputClass =
   'w-full rounded-btn border-outline-variant/50 focus:border-primary focus:ring-primary bg-surface-light px-4 py-3 font-body-md text-on-surface';
 ---
@@ -38,7 +39,7 @@ const inputClass =
         <p class="font-body-md text-body-md text-on-surface-variant">{leadForm.subheading}</p>
       </div>
 
-      <form class="flex flex-col gap-4" method="post" action="#" novalidate onsubmit="return false;">
+      <form class="flex flex-col gap-4" data-wa-form="true" data-wa-number={waNumber}>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label class="sr-only" for="m-first-name">First Name</label>
@@ -107,12 +108,20 @@ const inputClass =
     const titleEl = modal.querySelector('#lead-modal-title');
     const serviceEl = modal.querySelector('#m-service') as HTMLSelectElement | null;
     const defaultTitle = titleEl?.textContent ?? '';
+    const waForm = modal.querySelector('form[data-wa-form]');
 
     const openModal = (trigger: HTMLElement) => {
       const title = trigger.getAttribute('data-lead-title');
       const service = trigger.getAttribute('data-lead-service');
+      const plan = trigger.getAttribute('data-lead-plan');
       if (titleEl) titleEl.textContent = title || defaultTitle;
       if (serviceEl && service) serviceEl.value = service;
+      // Tag the WhatsApp message with the CTA that opened the modal.
+      if (waForm) {
+        waForm.setAttribute('data-wa-source', title || defaultTitle);
+        if (plan) waForm.setAttribute('data-wa-plan', plan);
+        else waForm.removeAttribute('data-wa-plan');
+      }
       modal.showModal();
     };
 

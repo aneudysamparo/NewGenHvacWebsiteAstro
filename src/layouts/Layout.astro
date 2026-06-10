@@ -7,6 +7,7 @@ import SiteFooter from '../components/layout/SiteFooter.astro';
 import MobileCallBar from '../components/layout/MobileCallBar.astro';
 import LeadModal from '../components/layout/LeadModal.astro';
 import WhatsAppButton from '../components/layout/WhatsAppButton.astro';
+import FormToWhatsApp from '../components/layout/FormToWhatsApp.astro';
 
 interface Props {
   title?: string;
@@ -70,5 +71,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://newgenhvac.
     <MobileCallBar />
     <LeadModal />
     <WhatsAppButton />
+    <FormToWhatsApp />
   </body>
 </html>

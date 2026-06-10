@@ -1,6 +1,8 @@
 ---
 import { leadForm } from '../../data/home';
+import { business } from '../../data/business';
 
+const waNumber = business.phone.href.replace(/\D/g, '');
 const inputClass =
   'w-full rounded-btn border-outline-variant/50 focus:border-primary focus:ring-primary bg-surface-light px-4 py-3 font-body-md text-on-surface';
 ---
@@ -14,10 +16,9 @@ const inputClass =
     <p class="font-body-md text-body-md text-on-surface-variant">{leadForm.subheading}</p>
   </div>
 
-  {/* TODO(lead-endpoint): submission is intentionally NOT wired. Per CLAUDE.md
-      §3/§9 confirm the destination (likely GoHighLevel) before connecting.
-      onsubmit returns false so the form cannot post anywhere yet. */}
-  <form class="flex flex-col gap-4" method="post" action="#" novalidate onsubmit="return false;">
+  {/* INTERIM: submits to WhatsApp with the entered details pre-filled (see
+      FormToWhatsApp.astro). Real Jobber/GoHighLevel wiring comes later (§3/§9). */}
+  <form class="flex flex-col gap-4" data-wa-form="true" data-wa-number={waNumber} data-wa-source="Home Page Form">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
         <label class="sr-only" for="first-name">First Name</label>

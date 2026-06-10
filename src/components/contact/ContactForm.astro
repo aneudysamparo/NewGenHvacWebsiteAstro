@@ -1,7 +1,9 @@
 ---
 import { contact } from '../../data/contact';
+import { business } from '../../data/business';
 const f = contact.form;
 
+const waNumber = business.phone.href.replace(/\D/g, '');
 const inputClass =
   'w-full rounded-btn border-outline-variant/50 focus:border-primary focus:ring-primary bg-surface-light px-4 py-3 font-body-md text-on-surface';
 ---
@@ -15,9 +17,9 @@ const inputClass =
     <p class="font-body-md text-body-md text-on-surface-variant">{f.subheading}</p>
   </div>
 
-  {/* TODO(lead-endpoint): NOT wired — confirm Jobber/GoHighLevel destination
-      before connecting (CLAUDE.md §3/§9). onsubmit returns false for now. */}
-  <form class="flex flex-col gap-4" method="post" action="#" novalidate onsubmit="return false;">
+  {/* INTERIM: submits to WhatsApp with the entered details pre-filled (see
+      FormToWhatsApp.astro). Real Jobber/GoHighLevel wiring comes later (§3/§9). */}
+  <form class="flex flex-col gap-4" data-wa-form="true" data-wa-number={waNumber} data-wa-source="Contact Page Form">
     <div>
       <label class="sr-only" for="c-name">Full Name</label>
       <input class={inputClass} id="c-name" name="name" placeholder="Full Name" type="text" autocomplete="name" required />

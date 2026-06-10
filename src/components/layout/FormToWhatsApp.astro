@@ -1,0 +1,91 @@
+---
+/*
+ * INTERIM lead handling: any <form data-wa-form data-wa-number="..."> "submits"
+ * by opening WhatsApp with the entered details pre-filled — no backend yet.
+ * Real Jobber/GoHighLevel wiring comes in a later stage (CLAUDE.md §3/§9).
+ *
+ * The message is tagged with where it came from:
+ *   - Source  = the form's `data-wa-source` (static per page, or set dynamically
+ *               by the modal from the CTA that opened it).
+ *   - Page    = auto-detected from the URL.
+ * Rendered once by Layout so it covers every form on every page (incl. the modal).
+ */
+---
+
+<script>
+  const LABELS = {
+    first_name: 'First name',
+    last_name: 'Last name',
+    name: 'Name',
+    phone: 'Phone',
+    email: 'Email',
+    service: 'Service',
+    zip: 'Town/ZIP',
+    message: 'Message',
+    language: 'Language',
+    sms_consent: 'SMS updates',
+  };
+
+  const PAGES = {
+    '/': 'Home',
+    '/about': 'About',
+    '/services': 'Services',
+    '/comfort-plan': 'Comfort Plan',
+    '/service-areas': 'Service Areas',
+    '/contact': 'Contact',
+  };
+
+  function pageName() {
+    const path = location.pathname.replace(/\/+$/, '') || '/';
+    if (PAGES[path]) return PAGES[path];
+    // Nested route → prettify the last segment, e.g. /services/commercial-hvac
+    const seg = path.split('/').filter(Boolean).pop() || 'Home';
+    return seg
+      .replace(/-/g, ' ')
+      .replace(/\b\w/g, (c) => c.toUpperCase())
+      .replace(/\b(Ma|Nh)\b/g, (s) => s.toUpperCase());
+  }
+
+  document.querySelectorAll('form[data-wa-form]').forEach((form) => {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const number = form.getAttribute('data-wa-number') || '';
+      if (!number) return;
+
+      const fields = [];
+      form.querySelectorAll('input[name], select[name], textarea[name]').forEach((el) => {
+        const label = LABELS[el.name] || el.name;
+        let value = '';
+        if (el.tagName === 'SELECT') {
+          const opt = el.options[el.selectedIndex];
+          value = opt && opt.value ? opt.text.trim() : '';
+        } else if (el.type === 'checkbox') {
+          value = el.checked ? 'Yes' : '';
+        } else {
+          value = (el.value || '').trim();
+        }
+        if (value) fields.push(`${label}: ${value}`);
+      });
+
+      const source = (form.getAttribute('data-wa-source') || '').trim();
+      const plan = (form.getAttribute('data-wa-plan') || '').trim();
+      const meta = [];
+      if (source) meta.push(`Source: ${source}`);
+      if (plan) meta.push(`Plan: ${plan}`);
+      meta.push(`Page: ${pageName()}`);
+
+      const text =
+        'Hi NewGen HVAC! New request from your website:\n\n' +
+        meta.join('\n') +
+        '\n\n' +
+        fields.join('\n');
+
+      const url = `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
+      const win = window.open(url, '_blank');
+      if (!win) window.location.href = url;
+
+      const dialog = form.closest('dialog');
+      if (dialog && typeof dialog.close === 'function') dialog.close();
+    });
+  });
+</script>
